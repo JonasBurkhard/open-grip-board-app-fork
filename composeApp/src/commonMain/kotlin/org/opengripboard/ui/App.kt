@@ -1,4 +1,4 @@
-package org.opengripboard
+package org.opengripboard.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -18,6 +18,7 @@ import org.jetbrains.compose.resources.painterResource
 
 import opengripboard.composeapp.generated.resources.Res
 import opengripboard.composeapp.generated.resources.compose_multiplatform
+import org.opengripboard.Greeting
 
 @Composable
 @Preview
