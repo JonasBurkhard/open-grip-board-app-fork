@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.model.PageId
+import org.opengripboard.theming.Theme
 import org.opengripboard.ui.preview.ModelProvider
 import org.opengripboard.ui.views.ConnectBoard
 import org.opengripboard.ui.views.Dashboard
@@ -30,7 +31,7 @@ import org.opengripboard.ui.views.RecordingData
 @Composable
 @Preview
 fun App(@PreviewParameter(ModelProvider::class) model: OgbViewModel) {
-    MaterialTheme {
+    Theme {
         Scaffold { padding ->
             Column(
                 modifier = Modifier
@@ -50,7 +51,7 @@ fun App(@PreviewParameter(ModelProvider::class) model: OgbViewModel) {
 fun ViewContent(model: OgbViewModel) {
     when (model.navigation.currentPage) {
         PageId.Dashboard -> {
-            Dashboard()
+            Dashboard(model)
         }
 
         PageId.ConnectBoard -> {
@@ -58,7 +59,7 @@ fun ViewContent(model: OgbViewModel) {
         }
 
         PageId.PastTrainings -> {
-            PastTrainings()
+            PastTrainings({})
         }
 
         PageId.RecordingData -> {
