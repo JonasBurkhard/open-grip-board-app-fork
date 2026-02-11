@@ -23,7 +23,7 @@ class ModelProvider : PreviewParameterProvider<OgbViewModel> {
             trainings.addTrainings(
                 List(28) { id ->
                     Training(
-                        id = id,
+                        id = id.toString(),
                         date = Clock.System.now().minus(Random.nextInt(0, 15).days)
                             .toLocalDateTime(TimeZone.currentSystemDefault()),
                         dataPoints = List(20) { Random.nextInt(5000, 60000) },
@@ -42,7 +42,7 @@ class ModelProvider : PreviewParameterProvider<OgbViewModel> {
             trainings.addTrainings(
                 List(28) { id ->
                     Training(
-                        id = id,
+                        id = id.toString(),
                         date = Clock.System.now().minus(Random.nextInt(0, 15).days)
                             .toLocalDateTime(TimeZone.currentSystemDefault()),
                         dataPoints = List(20) { Random.nextInt(5000, 60000) },
