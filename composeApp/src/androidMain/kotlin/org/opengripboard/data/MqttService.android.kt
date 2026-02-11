@@ -24,10 +24,10 @@ actual class MqttService {
         .serverPort(1883)
         .buildAsync()
 
-    open fun connectAndSubscribe(
+    actual fun connectAndSubscribe(
         topic: String,
-        onNewMessage: (String) -> Unit = {},
-        onConnectionFailed: () -> Unit = {}
+        onNewMessage: (String) -> Unit,
+        onConnectionFailed: () -> Unit,
     ) {
         if (client.state.isConnected) {
             subscribe(topic, onNewMessage)
