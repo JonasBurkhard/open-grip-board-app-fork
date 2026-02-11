@@ -54,7 +54,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.datetime)
             implementation(libs.material.icons.extended)
-            implementation(libs.hivemq.mqtt.client)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -95,5 +94,6 @@ dependencies {
     implementation(libs.qrscanner.compose)
     implementation(libs.qrscanner.mlkit)
     implementation(libs.accompanist.permissions)
+    implementation(libs.hivemq.mqtt.client)
 }
 
