@@ -6,7 +6,7 @@ import androidx.compose.runtime.State
 @Composable
 actual fun QrScannerComponent(
     hasCameraPermission: Boolean,
-    flashIsEnabled: State<Boolean>,
+    flashIsEnabled: Boolean,
     onQrScannerResult: (String) -> Unit
 ) {
 }

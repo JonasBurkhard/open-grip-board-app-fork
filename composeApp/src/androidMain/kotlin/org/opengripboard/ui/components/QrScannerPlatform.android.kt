@@ -28,7 +28,7 @@ import org.opengripboard.theming.LargeSpacing
 @Composable
 actual fun QrScannerComponent(
     hasCameraPermission: Boolean,
-    flashIsEnabled: State<Boolean>,
+    flashIsEnabled: Boolean,
     onQrScannerResult: (String) -> Unit
 ) {
     if (hasCameraPermission && !LocalInspectionMode.current) {
@@ -54,7 +54,7 @@ actual fun QrScannerComponent(
                 },
                 modifier = Modifier.fillMaxSize(),
                 scanningMode = ScanningMode.PARALLEL,
-                isFlashEnabled = flashIsEnabled,
+                isFlashEnabled = remember { mutableStateOf(flashIsEnabled) },
                 linearZoom = remember { mutableStateOf(0f) },
             )
         }

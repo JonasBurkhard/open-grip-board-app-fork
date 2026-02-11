@@ -1,7 +1,6 @@
 package org.opengripboard.ui.components
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -13,7 +12,10 @@ import org.opengripboard.ui.preview.ModelProvider
 @Composable
 private fun ItemSliderLightPreview(@PreviewParameter(ModelProvider::class) model: OgbViewModel) {
     Theme(darkTheme = false) {
-        QrScannerComponent(true,mutableStateOf(false),{})
+        QrScannerComponent(
+            hasCameraPermission = true,
+            flashIsEnabled = false,
+            onQrScannerResult = {})
     }
 }
 
@@ -21,9 +23,16 @@ private fun ItemSliderLightPreview(@PreviewParameter(ModelProvider::class) model
 @Composable
 private fun ItemSliderDarkPreview(@PreviewParameter(ModelProvider::class) model: OgbViewModel) {
     Theme(darkTheme = true) {
-        QrScannerComponent(true,mutableStateOf(false),{})
+        QrScannerComponent(
+            hasCameraPermission = true,
+            flashIsEnabled = false,
+            onQrScannerResult = {})
     }
 }
 
 @Composable
-expect fun QrScannerComponent(hasCameraPermission: Boolean, flashIsEnabled: State<Boolean>, onQrScannerResult: (String)->Unit)
+expect fun QrScannerComponent(
+    hasCameraPermission: Boolean,
+    flashIsEnabled: Boolean,
+    onQrScannerResult: (String) -> Unit
+)
