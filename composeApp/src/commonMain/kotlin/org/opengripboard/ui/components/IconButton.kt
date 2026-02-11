@@ -30,9 +30,10 @@ private fun ItemSliderPreview() {
 }
 
 @Composable
-fun IconButton(icon: ImageVector, onBackPressed: () -> Unit) {
+fun IconButton(icon: ImageVector, onButtonPressed: () -> Unit, modifier: Modifier = Modifier) {
     IconButton(
-        onClick = onBackPressed
+        onClick = onButtonPressed,
+        modifier = modifier
     ) {
         Icon(
             icon,
