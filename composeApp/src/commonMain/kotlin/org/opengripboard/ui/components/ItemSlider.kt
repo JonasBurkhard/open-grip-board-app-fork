@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
@@ -35,17 +36,28 @@ import org.opengripboard.utils.getScreenWidth
 private fun ItemSliderLightPreview(@PreviewParameter(ModelProvider::class) model: OgbViewModel) {
     Theme(darkTheme = false) {
         ItemSlider({}, {}) {
-            listOf(
-                { Text("Content", color = MaterialTheme.colorScheme.onPrimaryContainer) },
-                { Text("Content", color = MaterialTheme.colorScheme.onPrimaryContainer) }
-            )
+            model.hangboards.availableHangboards.map { board ->
+                @Composable {
+                    val color = model.hangboards.currentHangboard?.hangboardId.let {
+                        if (board.hangboardId == it) {
+                            Color.Green
+                        } else {
+                            MaterialTheme.colorScheme.onPrimaryContainer
+                        }
+                    }
+                    Text(
+                        board.name,
+                        color = color
+                    )
+                }
+            }
         }
     }
 }
 
 @Preview(name = "Dark", showBackground = true, backgroundColor = 0xFF121212)
 @Composable
-private fun ItemSliderDarkPreview(@PreviewParameter(ModelProvider::class) model: OgbViewModel) {
+private fun ItemSliderDarkPreview() {
     Theme(darkTheme = true) {
         ItemSlider({}, {}) {
             listOf(
