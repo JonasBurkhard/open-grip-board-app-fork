@@ -3,11 +3,9 @@ package org.opengripboard.data.objects
 import kotlinx.datetime.LocalDateTime
 import kotlin.time.Duration
 
-class Training(
-    val id: Int,
+data class Training(
+    val id: String,
     val date: LocalDateTime,
     val dataPoints: List<Int>,
     val duration: Duration,
-) {
-
-}
+)
