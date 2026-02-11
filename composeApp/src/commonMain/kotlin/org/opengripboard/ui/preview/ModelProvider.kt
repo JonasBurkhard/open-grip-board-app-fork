@@ -1,9 +1,10 @@
 package org.opengripboard.ui.preview
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.opengripboard.data.objects.Hangboard
+import org.opengripboard.data.objects.HangboardStatus
 import org.opengripboard.data.objects.Training
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.model.PageId
@@ -31,6 +32,11 @@ class ModelProvider : PreviewParameterProvider<OgbViewModel> {
                 }
             )
             navigation.navigate(PageId.PastTrainings)
+            hangboards.addHangboards(
+                List(3) { id ->
+                    Hangboard(id.toString(), id, HangboardStatus.Online)
+                }
+            )
         },
         OgbViewModel().apply {
             trainings.addTrainings(
