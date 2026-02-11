@@ -17,14 +17,21 @@ class NavigationManager {
         }
     }
 
-    fun navigateBack(): Boolean {
-        return if (history.isNotEmpty()) {
+    fun navigateBack() {
+        if (history.isNotEmpty()) {
             currentPage = history.removeLast()
-            true
-        } else {
-            false
         }
     }
 
-    fun canGoBack(): Boolean = history.isNotEmpty()
+    fun onBarChartClick() {
+        if (currentPage == PageId.Dashboard) {
+            navigate(PageId.PastTrainings)
+        }
+    }
+
+    fun onHangboardSelected() {
+        if (currentPage == PageId.Dashboard) {
+            navigate(PageId.RecordingData)
+        }
+    }
 }
