@@ -55,15 +55,35 @@ fun ViewContent(model: OgbViewModel) {
         }
 
         PageId.ConnectBoard -> {
-            ConnectBoard()
+            ConnectBoard(
+                { model.navigation.navigateBack() },
+                model.hasCameraPermission,
+                model.flashIsEnabled,
+                { result -> model.onQrScannerResult(result) },
+                { model.onFlashButtonPressed() })
         }
 
         PageId.PastTrainings -> {
-            PastTrainings({})
+            PastTrainings(
+                model.trainings.pastTrainings,
+                { model.onNewRecordingPressed() },
+                { id -> model.trainings.onDeletePressed(id) },
+                { model.navigation.navigateBack() },
+            )
         }
 
         PageId.RecordingData -> {
-            RecordingData()
+            RecordingData(
+                { model.navigation.navigateBack() },
+                model.hangboards.isRecording,
+                model.hangboards.currentReadings,
+                { model.hangboards.onStartRecording() },
+                { model.hangboards.onStopRecording() },
+                { model.onAddHangboard() },
+                { id -> model.hangboards.onSelected(id) },
+                model.hangboards.availableHangboards,
+                model.hangboards.currentHangboard,
+            )
         }
     }
 }
