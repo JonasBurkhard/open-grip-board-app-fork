@@ -37,7 +37,7 @@ import kotlin.math.round
 @Composable
 private fun ItemSliderLightPreview(@PreviewParameter(ModelProvider::class) model: OgbViewModel) {
     Theme(darkTheme = false) {
-        PastTrainings(model.pastTrainings, {}, {}, {})
+        PastTrainings(model.trainings.pastTrainings, {}, {}, {})
     }
 }
 
@@ -45,7 +45,7 @@ private fun ItemSliderLightPreview(@PreviewParameter(ModelProvider::class) model
 @Composable
 private fun ItemSliderDarkPreview(@PreviewParameter(ModelProvider::class) model: OgbViewModel) {
     Theme(darkTheme = true) {
-        PastTrainings(model.pastTrainings, {}, {}, {})
+        PastTrainings(model.trainings.pastTrainings, {}, {}, {})
     }
 }
 

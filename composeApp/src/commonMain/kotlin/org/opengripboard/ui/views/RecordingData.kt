@@ -74,7 +74,7 @@ fun RecordingData(
     onStartRecordingPressed: () -> Unit,
     onStopRecordingPressed: () -> Unit,
     onAddHangboardPressed: () -> Unit,
-    onHangboardSelected: () -> Unit,
+    onHangboardSelected: (Int) -> Unit,
     availableHangboards: List<Hangboard>,
     currentHangboard: Hangboard?,
 ) {
@@ -116,7 +116,7 @@ fun RecordingView(currentHangboardReadings: List<Int>, onStopRecordingPressed: (
 fun PreRecordingView(
     onStartRecordingPressed: () -> Unit,
     onAddHangboardPressed: () -> Unit,
-    onHangboardSelected: () -> Unit,
+    onHangboardSelected: (Int) -> Unit,
     availableHangboards: List<Hangboard>,
     currentHangboard: Hangboard?,
 ) {
@@ -125,10 +125,11 @@ fun PreRecordingView(
         color = MaterialTheme.colorScheme.onBackground,
         modifier = Modifier.padding(start = MediumSpacing)
     )
+
     ItemSlider(
         modifier = Modifier.padding(start = MediumSpacing),
         onAddPressed = { onAddHangboardPressed() },
-        onItemSelected = { onHangboardSelected() },
+        onItemSelected = { id -> onHangboardSelected(id) },
     )
     {
         availableHangboards.map { board ->
