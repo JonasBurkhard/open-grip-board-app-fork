@@ -63,8 +63,8 @@ fun ItemSlider(
     modifier: Modifier = Modifier,
     itemsList: () -> List<@Composable () -> Unit>,
 ) {
-    val screenWidth = getScreenWidth()
-    val boxWidth: Dp = (screenWidth / 2.75f).dp
+    val screenWidth = getScreenWidth() / 2.7
+    val boxWidth: Dp = (screenWidth / 2.75).dp
 
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
