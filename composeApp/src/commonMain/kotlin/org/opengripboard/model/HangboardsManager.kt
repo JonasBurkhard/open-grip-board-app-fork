@@ -11,7 +11,6 @@ import kotlinx.datetime.toLocalDateTime
 import org.opengripboard.data.objects.Hangboard
 import kotlin.time.Clock
 import kotlin.time.Duration
-import kotlin.time.Instant
 
 class HangboardsManager {
     var isRecording by mutableStateOf(false)
