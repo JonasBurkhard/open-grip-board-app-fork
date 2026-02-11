@@ -15,8 +15,7 @@ import kotlin.time.Clock
 import kotlin.time.Duration
 
 class StatisticsManager {
-    var trainingDurationLastTwoWeeks = mutableStateListOf<Pair<LocalDate, Duration>>()
-        private set
+    val trainingDurationLastTwoWeeks = mutableStateListOf<Pair<LocalDate, Duration>>()
 
     var trainingDurationTwoWeekAverage by mutableStateOf(Duration.ZERO)
         private set
@@ -44,7 +43,8 @@ class StatisticsManager {
         val orderedDurations = dayDurations.entries
             .sortedBy { it.key }
             .map { it.key to it.value }
-        trainingDurationLastTwoWeeks = mutableStateListOf(*orderedDurations.toTypedArray())
+        trainingDurationLastTwoWeeks.clear()
+        trainingDurationLastTwoWeeks.addAll(orderedDurations)
 
         trainingDurationTwoWeekAverage =
             if (orderedDurations.isNotEmpty()) {
