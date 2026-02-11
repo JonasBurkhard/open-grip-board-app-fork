@@ -53,7 +53,7 @@ private fun ItemSliderDarkPreview(@PreviewParameter(ModelProvider::class) model:
 fun PastTrainings(
     pastTrainings: List<Training>,
     onNewRecordingPressed: () -> Unit,
-    onDeletePressed: (Int) -> Unit,
+    onDeletePressed: (String) -> Unit,
     onBackPressed: () -> Unit
 ) {
     ActionView("Your recorded trainings", onBackPressed) {
@@ -88,7 +88,7 @@ fun PastTrainings(
 }
 
 @Composable
-private fun TrainingEntry(training: Training, onDeletePressed: (Int) -> Unit) {
+private fun TrainingEntry(training: Training, onDeletePressed: (String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

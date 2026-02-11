@@ -80,7 +80,7 @@ fun ViewContent(model: OgbViewModel) {
                 { model.hangboards.onStartRecording() },
                 { model.hangboards.onStopRecording() },
                 { model.onAddHangboard() },
-                { id -> model.hangboards.onSelected(id) },
+                { id -> model.onHangboardSelected(id) },
                 model.hangboards.availableHangboards,
                 model.hangboards.currentHangboard,
             )
