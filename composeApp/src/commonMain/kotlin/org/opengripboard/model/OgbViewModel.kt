@@ -17,14 +17,6 @@ class OgbViewModel(
     val hangboards: HangboardsManager = HangboardsManager(),
 ) : ViewModel() {
 
-    init {
-        viewModelScope.launch {
-            snapshotFlow { navigation.currentPage }.collect { page ->
-                statistics.recalculateFor(page, trainings.pastTrainings)
-            }
-        }
-    }
-
     var hasCameraPermission by mutableStateOf(false)
         private set
 
