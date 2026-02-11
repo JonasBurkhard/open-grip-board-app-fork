@@ -15,7 +15,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App(OgbViewModel())
+            val viewModel = OgbViewModel()
+            App(viewModel)
         }
     }
 }
