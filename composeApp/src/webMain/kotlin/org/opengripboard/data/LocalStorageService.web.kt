@@ -7,7 +7,7 @@ class WebLocalStorageService : LocalStorageService {
 
     }
 
-    override fun loadTraining(id: Int): Training? {
+    override fun loadTraining(id: String): Training? {
         return null
     }
 }

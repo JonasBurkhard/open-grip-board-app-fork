@@ -32,13 +32,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppAndroidPreview() {
     class FakeLocalStorageService : LocalStorageService {
-        private val data = mutableMapOf<Int, Training>()
-
+        private val data = mutableMapOf<String, Training>()
         override fun saveTraining(training: Training) {
             TODO("Not yet implemented")
         }
-
-        override fun loadTraining(id: Int): Training? {
+        override fun loadTraining(id: String): Training? {
             return data[id]
         }
     }

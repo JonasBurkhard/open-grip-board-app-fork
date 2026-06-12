@@ -14,7 +14,7 @@ class AndroidLocalStorageService(private val prefs: SharedPreferences): LocalSto
         prefs.edit { putString("training_${training.id}", serialized) }
     }
 
-    override fun loadTraining(id: Int): Training? {
+    override fun loadTraining(id: String): Training? {
         val serialized = prefs.getString("training_${id}", null) ?: return null
         return json.decodeFromString<Training>(serialized)
     }

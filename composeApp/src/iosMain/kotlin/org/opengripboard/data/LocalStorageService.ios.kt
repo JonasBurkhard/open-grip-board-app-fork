@@ -6,7 +6,7 @@ class IosLocalStorageService: LocalStorageService {
     override fun saveTraining(training: Training) {
     }
 
-    override fun loadTraining(id: Int):Training? {
+    override fun loadTraining(id: String):Training? {
         return null
     }
 }
