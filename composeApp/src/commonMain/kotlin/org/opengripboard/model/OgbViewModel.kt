@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.opengripboard.data.LocalStorageService
 import org.opengripboard.data.MqttService
 import org.opengripboard.data.objects.Hangboard
 import org.opengripboard.data.objects.HangboardStatus
 import kotlin.time.Duration
 
 class OgbViewModel(
+    val localStorageService: LocalStorageService,
     val statistics: StatisticsManager = StatisticsManager(),
     val navigation: NavigationManager = NavigationManager(),
     val trainings: TrainingsManager = TrainingsManager(),
