@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +29,8 @@ import org.opengripboard.theming.LargeSpacing
 actual fun QrScannerComponent(
     hasCameraPermission: Boolean,
     flashIsEnabled: Boolean,
-    onQrScannerResult: (String) -> Unit
+    onQrScannerResult: (String) -> Unit,
+    onOpenSettings: ()-> Unit,
 ) {
     if (hasCameraPermission && !LocalInspectionMode.current) {
         val formats = listOf(BarcodeFormat.QR_CODE, BarcodeFormat.CODE_128)
@@ -58,7 +60,8 @@ actual fun QrScannerComponent(
             )
         }
     } else if (!hasCameraPermission) {
-        Text("Camera permission required")
+        Text("Camera permission are required to use the QR-Scanner")
+        Button(onClick = onOpenSettings) { Text("Open settings")}
     } else {
         // Preview fallback
         Box(

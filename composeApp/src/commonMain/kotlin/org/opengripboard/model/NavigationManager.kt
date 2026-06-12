@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
-class NavigationManager {
+class NavigationManager(private val onPageEntered: (PageId) -> Unit) {
     var currentPage by mutableStateOf(PageId.Dashboard)
         private set
 
@@ -14,6 +14,7 @@ class NavigationManager {
         if (to != currentPage) {
             history.add(currentPage)
             currentPage = to
+            onPageEntered(to)
         }
     }
 

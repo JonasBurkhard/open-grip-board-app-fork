@@ -16,14 +16,17 @@ import kotlin.time.Duration
 class OgbViewModel(
     val localStorageService: LocalStorageService,
     val statistics: StatisticsManager = StatisticsManager(),
-    val navigation: NavigationManager = NavigationManager(),
     val trainings: TrainingsManager = TrainingsManager(),
     val hangboards: HangboardsManager = HangboardsManager(),
 ) : ViewModel() {
     lateinit var mqttService: MqttService
-
+    val navigation = NavigationManager(::onPageEntered)
     var currentError by mutableStateOf<String?>(null)
     var hasCameraPermission by mutableStateOf(false)
+        private set
+    var shouldRequestCameraPermission by mutableStateOf(false)
+        private set
+    var openSettingsEvent by mutableStateOf(false)
         private set
 
     var flashIsEnabled by mutableStateOf(false)
@@ -32,9 +35,24 @@ class OgbViewModel(
     fun onNewRecordingPressed() {
         navigation.navigate(PageId.RecordingData)
     }
+    fun onPageEntered(pageId: PageId){
+        if (pageId.requiresCameraPermissions && !hasCameraPermission){
+            requestCameraPermission()
+        }
+    }
+
+    fun onOpenSettings(){
+        openSettingsEvent = true
+    }
+
+    fun onOpenSettingsHandled(){
+        openSettingsEvent = false
+        navigation.navigateBack()
+    }
 
     /// Hangboard ///
     fun onAddHangboard() {
+        println(hasCameraPermission)
         navigation.navigate(PageId.ConnectBoard)
     }
     fun onHangboardSelected(hangboardId: Int) {
@@ -51,6 +69,7 @@ class OgbViewModel(
     /// QR Camera ///
     fun onQrScannerResult(result: String) {
         val scan = result.toIntOrNull()
+        println(scan)
         scan?.let {
             hangboards.addHangboard(
                 Hangboard(scan.toString(), scan, HangboardStatus.Offline)
@@ -60,6 +79,11 @@ class OgbViewModel(
 
     fun onCameraPermissionResult(granted: Boolean) {
         hasCameraPermission = granted
+        shouldRequestCameraPermission = false
+    }
+
+    fun requestCameraPermission() {
+        shouldRequestCameraPermission = true
     }
 
     fun onFlashButtonPressed() {

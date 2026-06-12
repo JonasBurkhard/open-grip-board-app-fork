@@ -11,7 +11,8 @@ private fun ItemSliderLightPreview() {
         QrScannerComponent(
             hasCameraPermission = true,
             flashIsEnabled = false,
-            onQrScannerResult = {})
+            onQrScannerResult = {},
+            onOpenSettings = {})
     }
 }
 
@@ -22,7 +23,8 @@ private fun ItemSliderDarkPreview() {
         QrScannerComponent(
             hasCameraPermission = true,
             flashIsEnabled = false,
-            onQrScannerResult = {})
+            onQrScannerResult = {},
+            onOpenSettings = {},)
     }
 }
 
@@ -30,5 +32,6 @@ private fun ItemSliderDarkPreview() {
 expect fun QrScannerComponent(
     hasCameraPermission: Boolean,
     flashIsEnabled: Boolean,
-    onQrScannerResult: (String) -> Unit
+    onQrScannerResult: (String) -> Unit,
+    onOpenSettings: ()-> Unit,
 )

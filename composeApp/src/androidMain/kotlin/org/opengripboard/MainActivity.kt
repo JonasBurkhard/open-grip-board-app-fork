@@ -2,7 +2,10 @@ package org.opengripboard
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -35,15 +38,29 @@ class MainActivity : ComponentActivity() {
         viewModel = OgbViewModel(localStorageService)
 
         setContent {
-            LaunchedEffect(viewModel.hasCameraPermission) {
-                if (!viewModel.hasCameraPermission) {
+            LaunchedEffect(viewModel.shouldRequestCameraPermission) {
+                if (viewModel.shouldRequestCameraPermission) {
                     cameraPermissionLauncher.launch(
                         Manifest.permission.CAMERA
                     )
                 }
             }
+            LaunchedEffect(viewModel.openSettingsEvent) {
+                if (viewModel.openSettingsEvent) {
+                    openAppSettings()
+                    viewModel.onOpenSettingsHandled()
+                }
+            }
             App(viewModel)
         }
+    }
+
+    fun openAppSettings() {
+        val intent = Intent(
+            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+            Uri.fromParts("package", packageName, null)
+        )
+        startActivity(intent)
     }
 }
 

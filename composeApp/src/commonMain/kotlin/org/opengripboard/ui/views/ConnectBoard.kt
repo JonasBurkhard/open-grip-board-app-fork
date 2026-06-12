@@ -33,7 +33,8 @@ private fun ItemSliderLightPreview(@PreviewParameter(ModelProvider::class) model
             model.hasCameraPermission,
             flashIsEnabled = false,
             onQrScannerResult = {},
-            {})
+            onFlashButtonPressed = {},
+            onOpenSettings = {})
     }
 }
 
@@ -46,7 +47,8 @@ private fun ItemSliderDarkPreview(@PreviewParameter(ModelProvider::class) model:
             model.hasCameraPermission,
             flashIsEnabled = false,
             onQrScannerResult = {},
-            {})
+            onFlashButtonPressed = {},
+            onOpenSettings = {})
     }
 }
 
@@ -57,13 +59,14 @@ fun ConnectBoard(
     flashIsEnabled: Boolean,
     onQrScannerResult: (String) -> Unit,
     onFlashButtonPressed: () -> Unit,
+    onOpenSettings: ()-> Unit,
 ) {
     ActionView("Add a new Hangboard", onBackPressed) {
         Column(
             Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            QrScannerComponent(hasCameraPermission, flashIsEnabled, onQrScannerResult)
+            QrScannerComponent(hasCameraPermission, flashIsEnabled, onQrScannerResult, onOpenSettings)
             Text(
                 "Scan the QR Code on the front of the Hangboard you want to connect to.",
                 modifier = Modifier.padding(LargeSpacing),

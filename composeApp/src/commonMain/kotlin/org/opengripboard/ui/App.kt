@@ -60,7 +60,8 @@ fun ViewContent(model: OgbViewModel) {
                 model.hasCameraPermission,
                 model.flashIsEnabled,
                 { result -> model.onQrScannerResult(result) },
-                { model.onFlashButtonPressed() })
+                { model.onFlashButtonPressed() },
+                { model.onOpenSettings() })
         }
 
         PageId.PastTrainings -> {
