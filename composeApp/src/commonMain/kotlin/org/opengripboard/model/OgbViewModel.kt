@@ -58,6 +58,10 @@ class OgbViewModel(
         }
     }
 
+    fun onCameraPermissionResult(granted: Boolean) {
+        hasCameraPermission = granted
+    }
+
     fun onFlashButtonPressed() {
         flashIsEnabled = !flashIsEnabled
     }
