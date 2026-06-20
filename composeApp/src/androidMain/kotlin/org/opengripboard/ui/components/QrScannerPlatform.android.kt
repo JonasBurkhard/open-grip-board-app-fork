@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,7 +56,7 @@ actual fun QrScannerComponent(
                 },
                 modifier = Modifier.fillMaxSize(),
                 scanningMode = ScanningMode.PARALLEL,
-                isFlashEnabled = remember { mutableStateOf(flashIsEnabled) },
+                isFlashEnabled = rememberUpdatedState(flashIsEnabled),
                 linearZoom = remember { mutableStateOf(0f) },
             )
         }
