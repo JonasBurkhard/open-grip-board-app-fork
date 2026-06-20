@@ -47,7 +47,7 @@ fun Dashboard(model: OgbViewModel) {
         SectionHeaderText("Hangboards")
         ItemSlider(
             { model.onAddHangboard() },
-            { id -> model.onHangboardSelected(id) },
+            { index -> model.onHangboardSelected(index) },
             modifier = Modifier.padding(start = MediumSpacing)
         ) {
             model.hangboards.availableHangboards.map { board ->

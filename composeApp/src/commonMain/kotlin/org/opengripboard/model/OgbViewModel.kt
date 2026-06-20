@@ -55,9 +55,10 @@ class OgbViewModel(
         println(hasCameraPermission)
         navigation.navigate(PageId.ConnectBoard)
     }
-    fun onHangboardSelected(hangboardId: Int) {
-        hangboards.onSelected(hangboardId)
-        subscribeToHangboard(hangboardId)
+    fun onHangboardSelected(hangboardListIndex: Int) {
+        val selectedBoard = hangboards.availableHangboards[hangboardListIndex]
+        hangboards.onSelected(selectedBoard.hangboardId)
+        subscribeToHangboard(selectedBoard.hangboardId)
         navigation.onHangboardSelected()
     }
 
@@ -67,13 +68,12 @@ class OgbViewModel(
     }
 
     /// QR Camera ///
-    fun onQrScannerResult(result: String) {
-        val scan = result.toIntOrNull()
-        println(scan)
-        scan?.let {
+    fun onQrScannerResult(scan: String) {
+        if (scan != "notFound") {
             hangboards.addHangboard(
-                Hangboard(scan.toString(), scan, HangboardStatus.Offline)
+                Hangboard(scan, scan, HangboardStatus.Offline)
             )
+            navigation.navigate(PageId.RecordingData)
         }
     }
 
@@ -102,8 +102,8 @@ class OgbViewModel(
         }
     }
 
-    fun subscribeToHangboard(hangboardId: Int) {
-        val topic = "hangboards/${hangboardId}"
+    fun subscribeToHangboard(hangboardId: String) {
+        val topic = "${hangboardId}/#"
         subscribeToMqttTopic(
             topic,
             { msg -> hangboards.onNewMqttMessage(msg) },

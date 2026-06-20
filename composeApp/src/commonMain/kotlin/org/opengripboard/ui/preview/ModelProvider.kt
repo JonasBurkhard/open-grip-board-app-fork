@@ -44,7 +44,7 @@ class ModelProvider() : PreviewParameterProvider<OgbViewModel> {
             navigation.navigate(PageId.PastTrainings)
             hangboards.addHangboards(
                 List(3) { id ->
-                    Hangboard(id.toString(), id, HangboardStatus.Online)
+                    Hangboard(id.toString(), id.toString(), HangboardStatus.Online)
                 }
             )
         },

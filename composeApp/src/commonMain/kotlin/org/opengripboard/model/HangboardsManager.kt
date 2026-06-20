@@ -23,7 +23,7 @@ class HangboardsManager {
     var currentHangboard by mutableStateOf<Hangboard?>(null)
         private set
 
-    fun onSelected(hangboardId: Int) {
+    fun onSelected(hangboardId: String) {
         currentHangboard =
             availableHangboards.firstOrNull { hangboard -> hangboard.hangboardId == hangboardId }
     }
@@ -45,7 +45,9 @@ class HangboardsManager {
     }
 
     fun addHangboard(newHangboard: Hangboard) {
-        availableHangboards.add(newHangboard)
+        if (!availableHangboards.contains(newHangboard)){
+            availableHangboards.add(newHangboard)
+        }
     }
 
     fun addHangboards(newHangboards: List<Hangboard>) {
