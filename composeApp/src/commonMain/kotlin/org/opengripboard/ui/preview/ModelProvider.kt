@@ -19,26 +19,24 @@ class ModelProvider() : PreviewParameterProvider<OgbViewModel> {
     class FakeLocalStorageService : LocalStorageService {
         private val data = mutableMapOf<String, Training>()
         override fun saveTraining(training: Training) {
-            TODO("Not yet implemented")
         }
         override fun loadTraining(id: String): Training? {
             return data[id]
         }
 
         override fun loadAllTrainings(): List<Training> {
-            TODO("Not yet implemented")
+            return listOf()
         }
 
         override fun saveHangboard(hangboard: Hangboard) {
-            TODO("Not yet implemented")
         }
 
         override fun loadHangboard(id: String): Hangboard? {
-            TODO("Not yet implemented")
+            return null
         }
 
         override fun loadAllHangboards(): List<Hangboard> {
-            TODO("Not yet implemented")
+            return listOf()
         }
 
     }

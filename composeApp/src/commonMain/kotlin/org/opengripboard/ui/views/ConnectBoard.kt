@@ -17,8 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import org.opengripboard.model.OgbViewModel
-import org.opengripboard.theming.LargeSpacing
 import org.opengripboard.theming.Theme
+import org.opengripboard.theming.spacing
 import org.opengripboard.ui.components.ActionView
 import org.opengripboard.ui.components.IconButton
 import org.opengripboard.ui.components.QrScannerComponent
@@ -69,7 +69,7 @@ fun ConnectBoard(
             QrScannerComponent(hasCameraPermission, flashIsEnabled, onQrScannerResult, onOpenSettings)
             Text(
                 "Scan the QR Code on the front of the Hangboard you want to connect to.",
-                modifier = Modifier.padding(LargeSpacing),
+                modifier = Modifier.padding(MaterialTheme.spacing.large),
                 color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(Modifier.weight(1f))

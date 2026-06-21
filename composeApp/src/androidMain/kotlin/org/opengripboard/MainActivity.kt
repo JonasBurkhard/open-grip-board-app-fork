@@ -20,6 +20,8 @@ import org.opengripboard.model.OgbViewModel
 import org.opengripboard.ui.App
 import androidx.activity.addCallback
 import org.opengripboard.data.objects.Hangboard
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
 class MainActivity : ComponentActivity() {
     private lateinit var viewModel: OgbViewModel
@@ -42,6 +44,11 @@ class MainActivity : ComponentActivity() {
         onBackPressedDispatcher.addCallback(this) {
             viewModel.navigation.navigateBack()
         }
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        val controller = WindowInsetsControllerCompat(window, window.decorView)
+        controller.isAppearanceLightStatusBars = true
 
         setContent {
             LaunchedEffect(viewModel.shouldRequestCameraPermission) {

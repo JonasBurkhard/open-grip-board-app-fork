@@ -24,7 +24,7 @@ import ch.ubique.qrscanner.mlkit.decoder.MLKitImageDecoder
 import ch.ubique.qrscanner.scanner.BarcodeFormat
 import ch.ubique.qrscanner.scanner.ScanningMode
 import ch.ubique.qrscanner.state.DecodingState
-import org.opengripboard.theming.LargeSpacing
+import org.opengripboard.theming.spacing
 
 @Composable
 actual fun QrScannerComponent(
@@ -39,7 +39,7 @@ actual fun QrScannerComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(350.dp)
-                .padding(LargeSpacing)
+                .padding(MaterialTheme.spacing.large)
                 .clipToBounds()
                 .clip(MaterialTheme.shapes.large),
             contentAlignment = Alignment.Center
@@ -75,7 +75,7 @@ actual fun QrScannerComponent(
                     MaterialTheme.colorScheme.onBackground,
                     MaterialTheme.shapes.large
                 )
-                .padding(LargeSpacing),
+                .padding(MaterialTheme.spacing.large),
             contentAlignment = Alignment.Center
         ) {
             Text("QR Scanner Preview", color = MaterialTheme.colorScheme.onBackground)

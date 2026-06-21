@@ -26,8 +26,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.opengripboard.model.OgbViewModel
-import org.opengripboard.theming.MediumSpacing
 import org.opengripboard.theming.Theme
+import org.opengripboard.theming.spacing
 import org.opengripboard.ui.preview.ModelProvider
 import org.opengripboard.utils.getScreenWidth
 
@@ -112,7 +112,7 @@ fun ItemsBox(boxWidth: Dp, onItemSelected: () -> Unit, item: @Composable () -> U
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.primaryContainer)
             .clickable { onItemSelected() }
-            .padding(MediumSpacing)
+            .padding(MaterialTheme.spacing.medium)
     ) {
         item()
     }

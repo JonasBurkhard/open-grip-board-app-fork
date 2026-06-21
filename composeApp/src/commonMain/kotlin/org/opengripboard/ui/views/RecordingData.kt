@@ -20,9 +20,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import org.opengripboard.data.objects.Hangboard
 import org.opengripboard.model.OgbViewModel
-import org.opengripboard.theming.LargeSpacing
-import org.opengripboard.theming.MediumSpacing
 import org.opengripboard.theming.Theme
+import org.opengripboard.theming.spacing
 import org.opengripboard.ui.components.ActionView
 import org.opengripboard.ui.components.IconButton
 import org.opengripboard.ui.components.ItemSlider
@@ -99,7 +98,7 @@ fun RecordingData(
 fun RecordingView(currentHangboardReadings: List<Int>, onStopRecordingPressed: () -> Unit) {
     LineChart(
         currentHangboardReadings.map { reading -> reading / 1000f },
-        modifier = Modifier.padding(LargeSpacing)
+        modifier = Modifier.padding(MaterialTheme.spacing.large)
     )
     Text(
         "Current Reading: ${currentHangboardReadings.firstOrNull() ?: "-"}",
@@ -123,11 +122,11 @@ fun PreRecordingView(
     Text(
         "Selected Hangboard",
         color = MaterialTheme.colorScheme.onBackground,
-        modifier = Modifier.padding(start = MediumSpacing)
+        modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
     )
 
     ItemSlider(
-        modifier = Modifier.padding(start = MediumSpacing),
+        modifier = Modifier.padding(start = MaterialTheme.spacing.medium),
         onAddPressed = { onAddHangboardPressed() },
         onItemSelected = { id -> onHangboardSelected(id) },
     )

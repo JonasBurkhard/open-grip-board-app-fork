@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import org.opengripboard.model.OgbViewModel
-import org.opengripboard.theming.MediumSpacing
 import org.opengripboard.theming.Theme
+import org.opengripboard.theming.spacing
 import org.opengripboard.ui.components.BarChartTwoWeeks
 import org.opengripboard.ui.components.ItemSlider
 import org.opengripboard.ui.components.SectionHeaderText
@@ -41,14 +41,14 @@ private fun ItemSliderDarkPreview(@PreviewParameter(ModelProvider::class) model:
 fun Dashboard(model: OgbViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(MediumSpacing),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = Modifier.fillMaxWidth()
     ) {
         SectionHeaderText("Hangboards")
         ItemSlider(
             { model.onAddHangboard() },
             { index -> model.onHangboardSelected(index) },
-            modifier = Modifier.padding(start = MediumSpacing)
+            modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         ) {
             model.hangboards.availableHangboards.map { board ->
                 @Composable {
@@ -73,7 +73,7 @@ fun Dashboard(model: OgbViewModel) {
             model.statistics.trainingDurationTwoWeekAverage,
             model.statistics.trainingDurationLastTwoWeeks,
             onClick = { model.navigation.onBarChartClick() },
-            modifier = Modifier.padding(MediumSpacing, 0.dp)
+            modifier = Modifier.padding(MaterialTheme.spacing.medium, 0.dp)
         )
     }
 }

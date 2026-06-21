@@ -29,8 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
 import org.opengripboard.model.OgbViewModel
-import org.opengripboard.theming.MediumSpacing
 import org.opengripboard.theming.Theme
+import org.opengripboard.theming.spacing
 import org.opengripboard.ui.preview.ModelProvider
 import kotlin.time.Duration
 
@@ -76,7 +76,7 @@ fun BarChartTwoWeeks(
             )
             .clip(MaterialTheme.shapes.large)
             .clickable { onClick() }
-            .padding(MediumSpacing)
+            .padding(MaterialTheme.spacing.medium)
     ) {
         val maxDuration = pastTwoWeeksDaily.maxOfOrNull { it.second.inWholeMinutes.toInt() } ?: 0
         val safeMaxDuration = if (maxDuration == 0) 1 else maxDuration
@@ -140,7 +140,7 @@ fun TrainingDurationText(trainingDurationToday: Int, trainingDurationTwoWeekAver
     Column(
         modifier = Modifier
             .width(100.dp)
-            .padding(start = MediumSpacing)
+            .padding(start = MaterialTheme.spacing.medium)
     ) {
         Text(
             buildAnnotatedString {

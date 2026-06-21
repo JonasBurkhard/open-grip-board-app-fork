@@ -25,8 +25,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import org.opengripboard.data.objects.Training
 import org.opengripboard.model.OgbViewModel
-import org.opengripboard.theming.MediumSpacing
 import org.opengripboard.theming.Theme
+import org.opengripboard.theming.spacing
 import org.opengripboard.ui.components.ActionView
 import org.opengripboard.ui.components.IconButton
 import org.opengripboard.ui.components.LineChart
@@ -66,7 +66,7 @@ fun PastTrainings(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .padding(MediumSpacing, 0.dp),
+                    .padding(MaterialTheme.spacing.medium, 0.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 items(pastTrainings.size) { index ->
@@ -94,14 +94,14 @@ private fun TrainingEntry(training: Training, onDeletePressed: (String) -> Unit)
             .fillMaxWidth()
             .height(100.dp)
             .border(1.dp, MaterialTheme.colorScheme.tertiary, MaterialTheme.shapes.medium)
-            .padding(MediumSpacing),
+            .padding(MaterialTheme.spacing.medium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         LineChart(
             training.dataPoints.map { point -> point / 1000f },
             modifier = Modifier.width(80.dp)
         )
-        Spacer(modifier = Modifier.width(MediumSpacing))
+        Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 "Date: ${training.date.date}",
@@ -116,7 +116,7 @@ private fun TrainingEntry(training: Training, onDeletePressed: (String) -> Unit)
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
-        Spacer(modifier = Modifier.width(MediumSpacing))
+        Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
         IconButton(Icons.Outlined.Delete, { onDeletePressed(training.id) })
     }
 }
