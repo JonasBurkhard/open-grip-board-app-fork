@@ -18,6 +18,7 @@ import org.opengripboard.data.LocalStorageService
 import org.opengripboard.data.objects.Training
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.ui.App
+import androidx.activity.addCallback
 
 class MainActivity : ComponentActivity() {
     private lateinit var viewModel: OgbViewModel
@@ -36,6 +37,10 @@ class MainActivity : ComponentActivity() {
         val localStorageService = AndroidLocalStorageService(prefs)
 
         viewModel = OgbViewModel(localStorageService)
+
+        onBackPressedDispatcher.addCallback(this) {
+            viewModel.navigation.navigateBack()
+        }
 
         setContent {
             LaunchedEffect(viewModel.shouldRequestCameraPermission) {
