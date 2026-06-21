@@ -1,5 +1,4 @@
 import org.gradle.kotlin.dsl.implementation
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -8,6 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -55,7 +55,6 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.material.icons.extended)
             implementation(libs.kotlinx.serialization.core)
-            implementation(libs.kotlinx.serialization.json)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -97,5 +96,6 @@ dependencies {
     implementation(libs.qrscanner.mlkit)
     implementation(libs.accompanist.permissions)
     implementation(libs.hivemq.mqtt.client)
+    implementation(libs.kotlinx.serialization.json)
 }
 

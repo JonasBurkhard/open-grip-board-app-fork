@@ -7,11 +7,11 @@ import java.util.UUID
 import kotlin.text.Charsets.UTF_8
 import java.nio.charset.StandardCharsets
 
-actual class MqttService {
+actual class MqttService actual constructor() {
     private val serverHost: String = "opengripboard.org"
     private val qos: MqttQos = MqttQos.EXACTLY_ONCE
-    private val username: String = "app_user"
-    private val password: String = "app_user"
+    private val username: String = "android"
+    private val password: String = "android"
 
     private val client = Mqtt5Client.builder()
         .serverHost(serverHost)

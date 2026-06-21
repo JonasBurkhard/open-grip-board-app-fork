@@ -1,6 +1,6 @@
 package org.opengripboard.data
 
-expect class MqttService {
+expect class MqttService() {
     fun connectAndSubscribe(
         topic: String,
         onNewMessage: (String) -> Unit = {},

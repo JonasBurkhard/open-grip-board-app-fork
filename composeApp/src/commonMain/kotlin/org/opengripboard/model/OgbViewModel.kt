@@ -19,7 +19,7 @@ class OgbViewModel(
     val trainings: TrainingsManager = TrainingsManager(),
     val hangboards: HangboardsManager = HangboardsManager(),
 ) : ViewModel() {
-    lateinit var mqttService: MqttService
+    private val mqttService = MqttService()
     val navigation = NavigationManager(::onPageEntered)
     var currentError by mutableStateOf<String?>(null)
     var hasCameraPermission by mutableStateOf(false)
@@ -32,6 +32,12 @@ class OgbViewModel(
     var flashIsEnabled by mutableStateOf(false)
         private set
 
+    init {
+        var loadedHangboards = localStorageService.loadAllHangboards()
+        hangboards.addHangboards(loadedHangboards)
+        var loadedTrainings = localStorageService.loadAllTrainings()
+        trainings.addTrainings(loadedTrainings)
+    }
     fun onNewRecordingPressed() {
         navigation.navigate(PageId.RecordingData)
     }
@@ -52,7 +58,6 @@ class OgbViewModel(
 
     /// Hangboard ///
     fun onAddHangboard() {
-        println(hasCameraPermission)
         navigation.navigate(PageId.ConnectBoard)
     }
     fun onHangboardSelected(hangboardListIndex: Int) {
@@ -73,6 +78,8 @@ class OgbViewModel(
             hangboards.addHangboard(
                 Hangboard(scan, scan, HangboardStatus.Offline)
             )
+            val allHangboards = hangboards.availableHangboards
+            allHangboards.forEach { hangboard -> localStorageService.saveHangboard(hangboard) }
             navigation.navigate(PageId.RecordingData)
         }
     }

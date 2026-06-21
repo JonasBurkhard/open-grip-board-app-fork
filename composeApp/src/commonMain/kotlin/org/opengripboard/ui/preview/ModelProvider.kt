@@ -24,6 +24,23 @@ class ModelProvider() : PreviewParameterProvider<OgbViewModel> {
         override fun loadTraining(id: String): Training? {
             return data[id]
         }
+
+        override fun loadAllTrainings(): List<Training> {
+            TODO("Not yet implemented")
+        }
+
+        override fun saveHangboard(hangboard: Hangboard) {
+            TODO("Not yet implemented")
+        }
+
+        override fun loadHangboard(id: String): Hangboard? {
+            TODO("Not yet implemented")
+        }
+
+        override fun loadAllHangboards(): List<Hangboard> {
+            TODO("Not yet implemented")
+        }
+
     }
     override val values: Sequence<OgbViewModel> = sequenceOf(
         OgbViewModel(FakeLocalStorageService()).apply {

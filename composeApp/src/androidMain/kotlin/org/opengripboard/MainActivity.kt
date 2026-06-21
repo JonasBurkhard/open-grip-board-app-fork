@@ -19,6 +19,7 @@ import org.opengripboard.data.objects.Training
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.ui.App
 import androidx.activity.addCallback
+import org.opengripboard.data.objects.Hangboard
 
 class MainActivity : ComponentActivity() {
     private lateinit var viewModel: OgbViewModel
@@ -80,6 +81,22 @@ fun AppAndroidPreview() {
 
         override fun loadTraining(id: String): Training? {
             return data[id]
+        }
+
+        override fun loadAllTrainings(): List<Training> {
+            TODO("Not yet implemented")
+        }
+
+        override fun saveHangboard(hangboard: Hangboard) {
+            TODO("Not yet implemented")
+        }
+
+        override fun loadHangboard(id: String): Hangboard? {
+            TODO("Not yet implemented")
+        }
+
+        override fun loadAllHangboards(): List<Hangboard> {
+            TODO("Not yet implemented")
         }
     }
 
