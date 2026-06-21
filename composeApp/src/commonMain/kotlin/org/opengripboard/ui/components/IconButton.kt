@@ -38,7 +38,7 @@ fun IconButton(icon: ImageVector, onButtonPressed: () -> Unit, modifier: Modifie
         Icon(
             icon,
             contentDescription = "go back",
-            modifier = Modifier.fillMaxHeight(),
+            modifier = modifier.fillMaxHeight(),
             tint = MaterialTheme.colorScheme.onBackground
         )
     }

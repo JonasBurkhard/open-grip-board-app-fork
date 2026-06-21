@@ -35,4 +35,10 @@ class NavigationManager(private val onPageEntered: (PageId) -> Unit) {
             navigate(PageId.RecordingData)
         }
     }
+
+    fun onAddHangboardSelected(){
+        if (currentPage == PageId.Dashboard) {
+            navigate(PageId.ConnectBoard)
+        }
+    }
 }

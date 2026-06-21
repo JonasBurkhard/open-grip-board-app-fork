@@ -58,7 +58,7 @@ class OgbViewModel(
 
     /// Hangboard ///
     fun onAddHangboard() {
-        navigation.navigate(PageId.ConnectBoard)
+        navigation.onAddHangboardSelected()
     }
     fun onHangboardSelected(hangboardListIndex: Int) {
         val selectedBoard = hangboards.availableHangboards[hangboardListIndex]

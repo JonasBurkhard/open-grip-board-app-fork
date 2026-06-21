@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material.icons.outlined.PlayArrow
+import androidx.compose.material.icons.outlined.Stop
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +26,7 @@ import org.opengripboard.ui.components.ActionView
 import org.opengripboard.ui.components.IconButton
 import org.opengripboard.ui.components.ItemSlider
 import org.opengripboard.ui.components.LineChart
+import org.opengripboard.ui.components.SectionHeaderText
 import org.opengripboard.ui.preview.ModelProvider
 
 @Preview(name = "Light", showBackground = true)
@@ -80,50 +81,49 @@ fun RecordingData(
     ActionView("Record a new Training", onBackPressed = { onBackPressed() }) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             if (isRecordingHangboardReadings) {
-                RecordingView(currentHangboardReadings, onStopRecordingPressed)
+                RecordingView(currentHangboardReadings)
             } else {
                 PreRecordingView(
-                    onStartRecordingPressed,
                     onAddHangboardPressed,
                     onHangboardSelected,
                     availableHangboards,
                     currentHangboard
                 )
             }
+            Spacer(modifier = Modifier.weight(1f))
+            val icon = if (isRecordingHangboardReadings) Icons.Outlined.Stop else Icons.Outlined.PlayArrow
+            val onButtonPressed = if (isRecordingHangboardReadings) onStopRecordingPressed else onStartRecordingPressed
+            IconButton(
+                modifier = Modifier.size(120.dp)
+                    .border(1.dp, MaterialTheme.colorScheme.onBackground, MaterialTheme.shapes.medium),
+                onButtonPressed = onButtonPressed,
+                icon = icon
+            )
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.large))
         }
     }
 }
 
 @Composable
-fun RecordingView(currentHangboardReadings: List<Int>, onStopRecordingPressed: () -> Unit) {
+fun RecordingView(currentHangboardReadings: List<Int>) {
     LineChart(
         currentHangboardReadings.map { reading -> reading / 1000f },
         modifier = Modifier.padding(MaterialTheme.spacing.large)
     )
     Text(
-        "Current Reading: ${currentHangboardReadings.firstOrNull() ?: "-"}",
+        "Current Reading: ${currentHangboardReadings.lastOrNull() ?: "-"}",
         color = MaterialTheme.colorScheme.onBackground
-    )
-    IconButton(
-        modifier = Modifier.size(120.dp),
-        onButtonPressed = { onStopRecordingPressed() },
-        icon = Icons.Filled.PlayArrow
     )
 }
 
 @Composable
 fun PreRecordingView(
-    onStartRecordingPressed: () -> Unit,
     onAddHangboardPressed: () -> Unit,
     onHangboardSelected: (Int) -> Unit,
     availableHangboards: List<Hangboard>,
     currentHangboard: Hangboard?,
 ) {
-    Text(
-        "Selected Hangboard",
-        color = MaterialTheme.colorScheme.onBackground,
-        modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
-    )
+    SectionHeaderText("Selected Hangboard")
 
     ItemSlider(
         modifier = Modifier.padding(start = MaterialTheme.spacing.medium),
@@ -147,11 +147,4 @@ fun PreRecordingView(
             }
         }
     }
-    Spacer(modifier = Modifier.height(20.dp))
-    IconButton(
-        modifier = Modifier.size(120.dp)
-            .border(1.dp, MaterialTheme.colorScheme.onBackground, MaterialTheme.shapes.medium),
-        onButtonPressed = { onStartRecordingPressed() },
-        icon = Icons.Filled.Stop
-    )
 }

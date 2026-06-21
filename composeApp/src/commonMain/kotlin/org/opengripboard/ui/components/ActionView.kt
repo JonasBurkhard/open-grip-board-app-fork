@@ -2,6 +2,7 @@ package org.opengripboard.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
@@ -19,7 +20,7 @@ import org.opengripboard.theming.Theme
 @Composable
 private fun ItemSliderLightPreview() {
     Theme(darkTheme = false) {
-        ActionView("Preview", {}) {}
+        ActionView("Preview", {}) {Text("preview content")}
     }
 }
 
@@ -27,7 +28,7 @@ private fun ItemSliderLightPreview() {
 @Composable
 private fun ItemSliderDarkPreview() {
     Theme(darkTheme = true) {
-        ActionView("Preview", {}) {}
+        ActionView("Preview", {}) {Text("preview content")}
     }
 }
 
@@ -37,7 +38,7 @@ fun ActionView(
     onBackPressed: () -> Unit,
     content: @Composable () -> Unit = { Text("Content") }
 ) {
-    Column {
+    Column (modifier = Modifier.fillMaxSize()){
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -50,7 +51,9 @@ fun ActionView(
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
-        content()
+        Box(modifier = Modifier.weight(1f)) {
+            content()
+        }
     }
 }
 
