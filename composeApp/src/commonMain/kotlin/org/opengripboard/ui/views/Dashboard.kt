@@ -13,6 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import opengripboard.composeapp.generated.resources.Res
+import opengripboard.composeapp.generated.resources.hangboard
+import org.jetbrains.compose.resources.stringResource
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.theming.Theme
 import org.opengripboard.theming.spacing
@@ -44,7 +47,8 @@ fun Dashboard(model: OgbViewModel) {
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = Modifier.fillMaxWidth()
     ) {
-        SectionHeaderText("Hangboards")
+
+        SectionHeaderText(stringResource(Res.string.hangboard))
         ItemSlider(
             { model.onAddHangboard() },
             { index -> model.onHangboardSelected(index) },

@@ -3,6 +3,8 @@ package org.opengripboard.model
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +17,7 @@ import kotlin.time.Duration
 
 class OgbViewModel(
     val localStorageService: LocalStorageService,
+    val dataStore: DataStore<Preferences>,
     val statistics: StatisticsManager = StatisticsManager(),
     val trainings: TrainingsManager = TrainingsManager(),
     val hangboards: HangboardsManager = HangboardsManager(),
@@ -140,5 +143,9 @@ class OgbViewModel(
                     }
                 })
         }
+    }
+
+    fun onLanguageSelected(locale: String){
+
     }
 }

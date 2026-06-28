@@ -22,6 +22,9 @@ import androidx.activity.addCallback
 import org.opengripboard.data.objects.Hangboard
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import okio.Path.Companion.toPath
+import org.opengripboard.model.createDataStore
 
 class MainActivity : ComponentActivity() {
     private lateinit var viewModel: OgbViewModel
@@ -38,8 +41,9 @@ class MainActivity : ComponentActivity() {
 
         val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val localStorageService = AndroidLocalStorageService(prefs)
+        val dataStore = createDataStore(applicationContext)
 
-        viewModel = OgbViewModel(localStorageService)
+        viewModel = OgbViewModel(localStorageService, dataStore)
 
         onBackPressedDispatcher.addCallback(this) {
             viewModel.navigation.navigateBack()
@@ -98,7 +102,7 @@ fun AppAndroidPreview() {
             TODO("Not yet implemented")
         }
 
-        override fun loadHangboard(id: String): Hangboard? {
+        override fun loadHangboard(id: String): Hangboard {
             TODO("Not yet implemented")
         }
 
@@ -108,5 +112,10 @@ fun AppAndroidPreview() {
     }
 
     val fakeStorageService = FakeLocalStorageService()
-    App(OgbViewModel(fakeStorageService))
+    val previewDataStore = PreferenceDataStoreFactory.createWithPath(
+        produceFile = {
+            "/tmp/preview.preferences_pb".toPath()
+        }
+    )
+    App(OgbViewModel(fakeStorageService, previewDataStore))
 }

@@ -1,8 +1,10 @@
 package org.opengripboard.ui.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import okio.Path.Companion.toPath
 import org.opengripboard.data.LocalStorageService
 import org.opengripboard.data.objects.Hangboard
 import org.opengripboard.data.objects.HangboardStatus
@@ -40,11 +42,18 @@ class ModelProvider() : PreviewParameterProvider<OgbViewModel> {
         }
 
     }
+
+    val previewDataStore = PreferenceDataStoreFactory.createWithPath(
+        produceFile = {
+            "/tmp/preview.preferences_pb".toPath()
+        }
+    )
+
     override val values: Sequence<OgbViewModel> = sequenceOf(
-        OgbViewModel(FakeLocalStorageService()).apply {
+        OgbViewModel(FakeLocalStorageService(), previewDataStore).apply {
 
         },
-        OgbViewModel(FakeLocalStorageService()).apply {
+        OgbViewModel(FakeLocalStorageService(), previewDataStore).apply {
             trainings.addTrainings(
                 List(28) { id ->
                     Training(
@@ -63,7 +72,7 @@ class ModelProvider() : PreviewParameterProvider<OgbViewModel> {
                 }
             )
         },
-        OgbViewModel(FakeLocalStorageService()).apply {
+        OgbViewModel(FakeLocalStorageService(), previewDataStore).apply {
             trainings.addTrainings(
                 List(28) { id ->
                     Training(

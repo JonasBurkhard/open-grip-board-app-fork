@@ -25,6 +25,7 @@ import org.opengripboard.ui.views.Dashboard
 import org.opengripboard.ui.views.PastTrainings
 import org.opengripboard.ui.views.RecordingData
 import org.opengripboard.theming.spacing
+import org.opengripboard.ui.views.Settings
 
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -86,6 +87,10 @@ fun ViewContent(model: OgbViewModel) {
                 model.hangboards.availableHangboards,
                 model.hangboards.currentHangboard,
             )
+        }
+
+        PageId.Settings -> {
+            Settings(model)
         }
     }
 }

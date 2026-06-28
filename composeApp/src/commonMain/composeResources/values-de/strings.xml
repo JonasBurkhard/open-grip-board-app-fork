@@ -1,0 +1,5 @@
+<resources>
+    <string name="hangboard">Hangboard</string>
+    <string name="settings">Einstellungen</string>
+    <string name="language">Sprache</string>
+</resources>
