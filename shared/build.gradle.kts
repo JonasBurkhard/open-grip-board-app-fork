@@ -1,20 +1,25 @@
-import org.gradle.kotlin.dsl.implementation
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidKmpLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
-    androidTarget {
+    android{
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
+        namespace = "org.opengripboard.kmpapp.shared"
+        compileSdk = 37
+        minSdk = 24
+        androidResources.enable = true
     }
     
     listOf(
@@ -22,7 +27,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+            baseName = "Shared"
             isStatic = true
         }
     }
@@ -42,6 +47,10 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.qrscanner.compose)
+            implementation(libs.qrscanner.core)
+            implementation(libs.qrscanner.mlkit)
+            implementation(libs.hivemq.mqtt.client)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -64,40 +73,7 @@ kotlin {
     }
 }
 
-android {
-    namespace = "org.opengripboard"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        applicationId = "org.opengripboard"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1,INDEX.LIST,io.netty.versions.properties}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-}
-
 dependencies {
-    debugImplementation(libs.compose.uiTooling)
-    implementation(libs.qrscanner.core)
-    implementation(libs.qrscanner.compose)
-    implementation(libs.qrscanner.mlkit)
-    implementation(libs.accompanist.permissions)
-    implementation(libs.hivemq.mqtt.client)
-    implementation(libs.kotlinx.serialization.json)
+    androidRuntimeClasspath(libs.androidx.compose.ui.tooling)
 }
 

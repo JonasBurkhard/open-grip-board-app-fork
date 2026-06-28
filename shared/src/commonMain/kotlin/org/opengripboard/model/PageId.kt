@@ -1,7 +1,7 @@
 package org.opengripboard.model
 
-import opengripboard.composeapp.generated.resources.Res
-import opengripboard.composeapp.generated.resources.settings
+import opengripboard.shared.generated.resources.Res
+import opengripboard.shared.generated.resources.settings
 
 enum class PageId(val display: String, val requiresCameraPermissions: Boolean) {
     Dashboard("Dashboard",false),

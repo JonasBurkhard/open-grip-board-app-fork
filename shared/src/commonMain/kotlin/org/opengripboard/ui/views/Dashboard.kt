@@ -13,8 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import opengripboard.composeapp.generated.resources.Res
-import opengripboard.composeapp.generated.resources.hangboard
+import opengripboard.shared.generated.resources.Res
+import opengripboard.shared.generated.resources.hangboard
 import org.jetbrains.compose.resources.stringResource
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.theming.Theme

@@ -20,8 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import opengripboard.composeapp.generated.resources.Res
-import opengripboard.composeapp.generated.resources.language
+import opengripboard.shared.generated.resources.Res
+import opengripboard.shared.generated.resources.language
 import org.jetbrains.compose.resources.stringResource
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.theming.Theme

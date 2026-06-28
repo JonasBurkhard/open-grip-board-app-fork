@@ -13,7 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
-import org.opengripboard.data.AndroidLocalStorageService
 import org.opengripboard.data.LocalStorageService
 import org.opengripboard.data.objects.Training
 import org.opengripboard.model.OgbViewModel
@@ -23,8 +22,9 @@ import org.opengripboard.data.objects.Hangboard
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import okio.Path.Companion.toPath
+import org.org.opengripboard.data.AndroidLocalStorageService
 import org.opengripboard.model.createDataStore
+import okio.Path.Companion.toPath
 
 class MainActivity : ComponentActivity() {
     private lateinit var viewModel: OgbViewModel
