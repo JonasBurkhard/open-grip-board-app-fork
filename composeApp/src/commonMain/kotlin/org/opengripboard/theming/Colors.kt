@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 
 
 // Light Theme Colors
+val primaryContainer = Color(0xFFF0EEE9)
 val DarkGrayPrimary = Color(0xFF4A4A4A)
 val LightGrayButton = Color(0xFFB0B0B0)
 val LightBackground = Color(0xFFF8F8F8)
@@ -20,6 +21,7 @@ val DarkSurface = Color(0xFF2A2A2A)
 val DarkTextColor = Color(0xFFE0E0E0)
 
 internal val LightColorScheme = lightColorScheme(
+    primaryContainer = primaryContainer,
     primary = DarkGrayPrimary,
     background = LightBackground,
     onBackground = LightTextColor,
