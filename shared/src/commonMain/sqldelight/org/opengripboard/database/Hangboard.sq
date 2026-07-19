@@ -1,0 +1,15 @@
+CREATE TABLE Hangboard (
+    hangboardId TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    status TEXT NOT NULL
+);
+
+selectAll:
+SELECT * FROM Hangboard;
+
+insert:
+INSERT OR REPLACE INTO Hangboard(hangboardId, name, status)
+VALUES (?, ?, ?);
+
+selectById:
+SELECT * FROM Hangboard WHERE hangboardId = ?;
