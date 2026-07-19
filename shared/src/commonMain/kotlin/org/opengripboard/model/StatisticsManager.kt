@@ -30,7 +30,7 @@ class StatisticsManager {
         val startDate: LocalDate = today.minus(DatePeriod(days = 14))
         val recentTrainings = pastTrainings.filter { it.date.date in startDate..today }
 
-        val dayDurations = (0..13).associate { offset ->
+        val dayDurations = (0..14).associate { offset ->
             val date: LocalDate = startDate.plus(DatePeriod(days = offset))
             date to Duration.ZERO
         }.toMutableMap()

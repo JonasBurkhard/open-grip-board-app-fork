@@ -37,7 +37,6 @@ class ModelProvider : PreviewParameterProvider<OgbViewModel> {
             PreviewSettingsRepository(),
             PreviewMqttService()
         ).apply {
-
         },
         OgbViewModel(
             PreviewLocalStorageService(),
@@ -56,6 +55,7 @@ class ModelProvider : PreviewParameterProvider<OgbViewModel> {
                 }
             )
             navigation.navigate(PageId.PastTrainings)
+            statistics.recalculateFor(PageId.Dashboard, trainings.pastTrainings)
             hangboards.addHangboards(
                 List(3) { id ->
                     Hangboard(id.toString(), id.toString(), HangboardStatus.Online)
@@ -79,6 +79,7 @@ class ModelProvider : PreviewParameterProvider<OgbViewModel> {
                 }
             )
             navigation.navigate(PageId.Dashboard)
+            statistics.recalculateFor(PageId.Dashboard, trainings.pastTrainings)
         },
     )
 }
