@@ -1,0 +1,11 @@
+<resources>
+    <string name="hangboard">Hangboard</string>
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="opengripboard">Open Grip Board</string>
+    <string name="today">today</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="connect_hangboard">Connect a new Hangboard</string>
+    <string name="past_trainings">Your past trainings</string>
+    <string name="recording_data">Recording data</string>
+</resources>
