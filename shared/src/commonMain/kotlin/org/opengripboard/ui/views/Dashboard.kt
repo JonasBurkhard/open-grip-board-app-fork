@@ -59,7 +59,7 @@ fun Dashboard(model: OgbViewModel) {
                 .weight(1f),
                 textAlign = TextAlign.Start,
                 color = MaterialTheme.colorScheme.onBackground)
-            IconButton(Icons.Filled.Settings, { model.onLocalAppSettingsSelected() })
+            IconButton(Icons.Filled.Settings, { model.dashboardModel.onLocalAppSettingsSelected() })
         }
         SectionHeaderText(stringResource(Res.string.hangboard))
         ItemSlider(

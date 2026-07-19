@@ -28,6 +28,7 @@ import org.opengripboard.theming.Theme
 import org.opengripboard.theming.spacing
 import org.opengripboard.ui.components.ActionView
 import org.opengripboard.ui.components.SectionHeaderText
+import org.opengripboard.ui.customAppLocale
 import org.opengripboard.ui.preview.ModelProvider
 
 @Preview(name = "Light", showBackground = true)
@@ -60,10 +61,10 @@ fun Settings(model: OgbViewModel) {
                 SectionHeaderText(stringResource(Res.string.language))
                 ExposedDropdownMenuBox(
                     expanded = expanded,
-                    onExpandedChange = { expanded = !expanded }
+                    onExpandedChange = { expanded = !expanded },
                 ) {
                     TextField(
-                        value = model.currentLocale,
+                        value = customAppLocale?:"undefined",
                         onValueChange = {},
                         readOnly = true,
                         label = { "Language" },
@@ -83,7 +84,7 @@ fun Settings(model: OgbViewModel) {
                         DropdownMenuItem(
                             text = { Text("English") },
                             onClick = {
-                                model.onLanguageSelected("en")
+                                model.settingsModel.onLanguageSelected("en")
                                 expanded = false
                             }
                         )
@@ -91,7 +92,7 @@ fun Settings(model: OgbViewModel) {
                         DropdownMenuItem(
                             text = { Text("Deutsch") },
                             onClick = {
-                                model.onLanguageSelected("de")
+                                model.settingsModel.onLanguageSelected("de")
                                 expanded = false
                             }
                         )
