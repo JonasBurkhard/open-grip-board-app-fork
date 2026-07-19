@@ -20,8 +20,10 @@ import androidx.activity.addCallback
 import org.opengripboard.data.objects.Hangboard
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import org.opengripboard.data.AndroidDatabaseDriverFactory
 import org.opengripboard.data.AndroidLocalStorageService
 import org.opengripboard.data.AndroidMqttService
+import org.opengripboard.data.Database
 import org.opengripboard.data.MqttService
 import org.opengripboard.data.SettingsRepository
 import org.opengripboard.di.AppDependencies
@@ -40,8 +42,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
-        val localStorageService = AndroidLocalStorageService(prefs)
+        val database = Database(
+            AndroidDatabaseDriverFactory(applicationContext)
+        )
+        val localStorageService = AndroidLocalStorageService(database.db)
 
         // Restore persisted language
         customAppLocale = AppDependencies.settingsRepository.language

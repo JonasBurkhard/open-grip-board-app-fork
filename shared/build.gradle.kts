@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -53,6 +54,8 @@ kotlin {
             implementation(libs.hivemq.mqtt.client)
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
+            implementation(libs.sqldelight.android.driver)
+            implementation(libs.kotlinx.serialization.json)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -68,6 +71,10 @@ kotlin {
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
+            implementation(libs.sqldelight.runtime)
+        }
+        iosMain.dependencies {
+            implementation(libs.sqldelight.native.driver)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -84,3 +91,10 @@ dependencies {
     androidRuntimeClasspath(libs.androidx.compose.ui.tooling)
 }
 
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName.set("org.opengripboard.database")
+        }
+    }
+}
