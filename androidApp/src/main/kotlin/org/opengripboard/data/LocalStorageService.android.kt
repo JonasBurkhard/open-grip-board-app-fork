@@ -1,11 +1,9 @@
-package org.org.opengripboard.data
+package org.opengripboard.data
 
 import android.content.SharedPreferences
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.opengripboard.data.objects.Training
 import androidx.core.content.edit
-import org.opengripboard.data.LocalStorageService
 import org.opengripboard.data.objects.Hangboard
 
 class AndroidLocalStorageService(private val prefs: SharedPreferences) : LocalStorageService {

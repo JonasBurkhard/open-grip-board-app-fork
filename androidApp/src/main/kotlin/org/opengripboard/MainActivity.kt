@@ -21,10 +21,9 @@ import androidx.activity.addCallback
 import org.opengripboard.data.objects.Hangboard
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import org.org.opengripboard.data.AndroidLocalStorageService
-import org.opengripboard.model.createDataStore
-import okio.Path.Companion.toPath
+import org.opengripboard.data.AndroidLocalStorageService
+import org.opengripboard.data.SettingsRepository
+import org.opengripboard.di.AppDependencies
 
 class MainActivity : ComponentActivity() {
     private lateinit var viewModel: OgbViewModel
@@ -41,9 +40,8 @@ class MainActivity : ComponentActivity() {
 
         val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val localStorageService = AndroidLocalStorageService(prefs)
-        val dataStore = createDataStore(applicationContext)
 
-        viewModel = OgbViewModel(localStorageService, dataStore)
+        viewModel = OgbViewModel(localStorageService, AppDependencies.settingsRepository)
 
         onBackPressedDispatcher.addCallback(this) {
             viewModel.navigation.navigateBack()
@@ -85,37 +83,36 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppAndroidPreview() {
     class FakeLocalStorageService : LocalStorageService {
-        private val data = mutableMapOf<String, Training>()
+        private val trainings = mutableMapOf<String, Training>()
+        private val hangboards = mutableMapOf<String, Hangboard>()
+
         override fun saveTraining(training: Training) {
-            TODO("Not yet implemented")
+            trainings[training.id] = training
         }
 
         override fun loadTraining(id: String): Training? {
-            return data[id]
+            return trainings[id]
         }
 
         override fun loadAllTrainings(): List<Training> {
-            TODO("Not yet implemented")
+            return trainings.values.toList()
         }
 
         override fun saveHangboard(hangboard: Hangboard) {
-            TODO("Not yet implemented")
+            hangboards[hangboard.hangboardId] = hangboard
         }
 
-        override fun loadHangboard(id: String): Hangboard {
-            TODO("Not yet implemented")
+        override fun loadHangboard(id: String): Hangboard? {
+            return hangboards[id]
         }
 
         override fun loadAllHangboards(): List<Hangboard> {
-            TODO("Not yet implemented")
+            return hangboards.values.toList()
         }
     }
 
-    val fakeStorageService = FakeLocalStorageService()
-    val previewDataStore = PreferenceDataStoreFactory.createWithPath(
-        produceFile = {
-            "/tmp/preview.preferences_pb".toPath()
-        }
-    )
-    App(OgbViewModel(fakeStorageService, previewDataStore))
+    class PreviewSettingsRepository : SettingsRepository {
+        override var language = "en"
+    }
+    App(OgbViewModel(FakeLocalStorageService(),PreviewSettingsRepository()))
 }

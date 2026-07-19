@@ -3,26 +3,25 @@ package org.opengripboard.model
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.opengripboard.data.LocalStorageService
 import org.opengripboard.data.MqttService
+import org.opengripboard.data.SettingsRepository
 import org.opengripboard.data.objects.Hangboard
 import org.opengripboard.data.objects.HangboardStatus
 import kotlin.time.Duration
 
 class OgbViewModel(
-    val localStorageService: LocalStorageService,
-    val dataStore: DataStore<Preferences>,
+    private val localStorageService: LocalStorageService,
+    private val settingsRepository: SettingsRepository,
     val statistics: StatisticsManager = StatisticsManager(),
     val trainings: TrainingsManager = TrainingsManager(),
     val hangboards: HangboardsManager = HangboardsManager(),
 ) : ViewModel() {
-    private val mqttService = MqttService()
+/*    private val mqttService = MqttService()*/
     val navigation = NavigationManager(::onPageEntered)
     var currentError by mutableStateOf<String?>(null)
     var hasCameraPermission by mutableStateOf(false)
@@ -63,12 +62,12 @@ class OgbViewModel(
     fun onAddHangboard() {
         navigation.onAddHangboardSelected()
     }
-    fun onHangboardSelected(hangboardListIndex: Int) {
+/*    fun onHangboardSelected(hangboardListIndex: Int) {
         val selectedBoard = hangboards.availableHangboards[hangboardListIndex]
         hangboards.onSelected(selectedBoard.hangboardId)
         subscribeToHangboard(selectedBoard.hangboardId)
         navigation.onHangboardSelected()
-    }
+    }*/
 
     fun onHangboardRecordingStopped(){
         val duration: Duration = hangboards.onStopRecording()
@@ -105,27 +104,27 @@ class OgbViewModel(
         currentError = null
     }
 
-    /// MQTT ///
+/*    /// MQTT ///
     fun subscribeToCurrentHangboard() {
         hangboards.currentHangboard?.hangboardId?.let {
             subscribeToHangboard(it)
         }
-    }
+    }*/
 
-    fun subscribeToHangboard(hangboardId: String) {
+/*    fun subscribeToHangboard(hangboardId: String) {
         val topic = "${hangboardId}/#"
         subscribeToMqttTopic(
             topic,
             { msg -> hangboards.onNewMqttMessage(msg) },
             ::onHangboardSubscriptionFail
         )
-    }
+    }*/
 
     fun onHangboardSubscriptionFail() {
         currentError = "failed to subscribe to hangboard"
     }
 
-    fun subscribeToMqttTopic(
+/*    fun subscribeToMqttTopic(
         topic: String,
         onNewMqttMessage: (String) -> Unit,
         onMqttSubscribeFail: () -> Unit
@@ -143,7 +142,7 @@ class OgbViewModel(
                     }
                 })
         }
-    }
+    }*/
 
     fun onLanguageSelected(locale: String){
 

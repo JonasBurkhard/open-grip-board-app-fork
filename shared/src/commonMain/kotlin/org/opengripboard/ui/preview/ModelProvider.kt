@@ -1,11 +1,9 @@
 package org.opengripboard.ui.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import okio.Path.Companion.toPath
-import org.opengripboard.data.LocalStorageService
+import org.opengripboard.data.SettingsRepository
 import org.opengripboard.data.objects.Hangboard
 import org.opengripboard.data.objects.HangboardStatus
 import org.opengripboard.data.objects.Training
@@ -17,43 +15,17 @@ import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.minutes
 
-class ModelProvider() : PreviewParameterProvider<OgbViewModel> {
-    class FakeLocalStorageService : LocalStorageService {
-        private val data = mutableMapOf<String, Training>()
-        override fun saveTraining(training: Training) {
-        }
-        override fun loadTraining(id: String): Training? {
-            return data[id]
-        }
+class ModelProvider : PreviewParameterProvider<OgbViewModel> {
 
-        override fun loadAllTrainings(): List<Training> {
-            return listOf()
-        }
-
-        override fun saveHangboard(hangboard: Hangboard) {
-        }
-
-        override fun loadHangboard(id: String): Hangboard? {
-            return null
-        }
-
-        override fun loadAllHangboards(): List<Hangboard> {
-            return listOf()
-        }
-
+    class PreviewSettingsRepository : SettingsRepository {
+        override var language = "en"
     }
 
-    val previewDataStore = PreferenceDataStoreFactory.createWithPath(
-        produceFile = {
-            "/tmp/preview.preferences_pb".toPath()
-        }
-    )
-
     override val values: Sequence<OgbViewModel> = sequenceOf(
-        OgbViewModel(FakeLocalStorageService(), previewDataStore).apply {
+        OgbViewModel(PreviewLocalStorageService(), PreviewSettingsRepository()).apply {
 
         },
-        OgbViewModel(FakeLocalStorageService(), previewDataStore).apply {
+        OgbViewModel(PreviewLocalStorageService(), PreviewSettingsRepository()).apply {
             trainings.addTrainings(
                 List(28) { id ->
                     Training(
@@ -72,7 +44,7 @@ class ModelProvider() : PreviewParameterProvider<OgbViewModel> {
                 }
             )
         },
-        OgbViewModel(FakeLocalStorageService(), previewDataStore).apply {
+        OgbViewModel(PreviewLocalStorageService(), PreviewSettingsRepository()).apply {
             trainings.addTrainings(
                 List(28) { id ->
                     Training(
