@@ -17,7 +17,6 @@ class HangboardsManager {
         private set
     private var recordingStartTime: LocalDateTime? = null
     var currentReadings = mutableStateListOf<Int>()
-        private set
     var availableHangboards = mutableStateListOf<Hangboard>()
         private set
     var currentHangboard by mutableStateOf<Hangboard?>(null)

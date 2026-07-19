@@ -28,6 +28,7 @@ import org.opengripboard.ui.components.ItemSlider
 import org.opengripboard.ui.components.LineChart
 import org.opengripboard.ui.components.SectionHeaderText
 import org.opengripboard.ui.preview.ModelProvider
+import kotlin.math.roundToInt
 
 @Preview(name = "Light", showBackground = true)
 @Composable
@@ -111,7 +112,7 @@ fun RecordingView(currentHangboardReadings: List<Int>) {
         modifier = Modifier.padding(MaterialTheme.spacing.large)
     )
     Text(
-        "Current Reading: ${currentHangboardReadings.lastOrNull() ?: "-"}",
+        "Current Reading: ${currentHangboardReadings.lastOrNull()?.div(100f)?.roundToInt()?.div(10f) ?: "-"} kg",
         color = MaterialTheme.colorScheme.onBackground
     )
 }

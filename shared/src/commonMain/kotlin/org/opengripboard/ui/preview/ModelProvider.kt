@@ -80,6 +80,8 @@ class ModelProvider : PreviewParameterProvider<OgbViewModel> {
             )
             navigation.navigate(PageId.Dashboard)
             statistics.recalculateFor(PageId.Dashboard, trainings.pastTrainings)
+            hangboards.onStartRecording()
+            List(20) { hangboards.currentReadings.add(Random.nextInt(5000, 60000) )}
         },
     )
 }
