@@ -25,6 +25,7 @@ import org.opengripboard.data.AndroidMqttService
 import org.opengripboard.data.MqttService
 import org.opengripboard.data.SettingsRepository
 import org.opengripboard.di.AppDependencies
+import org.opengripboard.ui.customAppLocale
 
 class MainActivity : ComponentActivity() {
     private lateinit var viewModel: OgbViewModel
@@ -41,6 +42,9 @@ class MainActivity : ComponentActivity() {
 
         val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val localStorageService = AndroidLocalStorageService(prefs)
+
+        // Restore persisted language
+        customAppLocale = AppDependencies.settingsRepository.language
 
         viewModel = OgbViewModel(localStorageService, AppDependencies.settingsRepository,
             AndroidMqttService())
