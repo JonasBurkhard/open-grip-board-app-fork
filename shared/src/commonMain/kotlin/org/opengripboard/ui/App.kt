@@ -32,18 +32,20 @@ import org.opengripboard.ui.views.Settings
 @Composable
 @Preview
 fun App(@PreviewParameter(ModelProvider::class) model: OgbViewModel) {
-    Theme {
-        Scaffold { padding ->
-            Column(
-                modifier = Modifier
-                    .padding(padding)
-                    .padding(horizontal = MaterialTheme.spacing.medium)
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Spacer(modifier = Modifier.height(10.dp))
-                ViewContent(model)
+    AppEnvironment {
+        Theme {
+            Scaffold { padding ->
+                Column(
+                    modifier = Modifier
+                        .padding(padding)
+                        .padding(horizontal = MaterialTheme.spacing.medium)
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Spacer(modifier = Modifier.height(10.dp))
+                    ViewContent(model)
+                }
             }
         }
     }

@@ -1,16 +1,16 @@
 package org.opengripboard.ui.views
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,35 +46,56 @@ private fun ItemSliderDarkPreview(@PreviewParameter(ModelProvider::class) model:
     }
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun Settings(model: OgbViewModel) {
-    var dropDownIsVisible by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = Modifier.fillMaxWidth()
     ) {
-        ActionView(model.navigation.currentPage.name, { model.navigation.navigateBack() }) {
+        ActionView(stringResource(model.navigation.currentPage.display), { model.navigation.navigateBack() }) {
             Column {
                 SectionHeaderText(stringResource(Res.string.language))
-                Box (modifier = Modifier.padding(MaterialTheme.spacing.medium)){
-                    Button(onClick = { dropDownIsVisible = !dropDownIsVisible }) {
-                        Text("select language")
-                    }
-                }
-                DropdownMenu(
-                    expanded = dropDownIsVisible,
-                    onDismissRequest = { dropDownIsVisible = false }
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = { expanded = !expanded }
                 ) {
-                    DropdownMenuItem(
-                        text = { Text("English") },
-                        onClick = { model.onLanguageSelected("en") }
+                    TextField(
+                        value = model.currentLocale,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { "Language" },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(
+                                expanded = expanded
+                            )
+                        },
+                        modifier = Modifier
+                            .menuAnchor()
                     )
-                    DropdownMenuItem(
-                        text = { Text("Deutsch") },
-                        onClick = { model.onLanguageSelected("de") }
-                    )
+
+                    ExposedDropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("English") },
+                            onClick = {
+                                model.onLanguageSelected("en")
+                                expanded = false
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Deutsch") },
+                            onClick = {
+                                model.onLanguageSelected("de")
+                                expanded = false
+                            }
+                        )
+                    }
                 }
             }
         }

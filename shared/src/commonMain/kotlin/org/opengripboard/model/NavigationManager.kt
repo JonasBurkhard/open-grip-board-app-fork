@@ -41,4 +41,10 @@ class NavigationManager(private val onPageEntered: (PageId) -> Unit) {
             navigate(PageId.ConnectBoard)
         }
     }
+
+    fun onSettingsSelected(){
+        if(currentPage == PageId.Dashboard){
+            navigate(PageId.Settings)
+        }
+    }
 }

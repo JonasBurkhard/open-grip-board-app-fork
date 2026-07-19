@@ -28,6 +28,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
+import opengripboard.shared.generated.resources.Res
+import opengripboard.shared.generated.resources.today
+import org.jetbrains.compose.resources.stringResource
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.theming.Theme
 import org.opengripboard.theming.spacing
@@ -152,7 +155,7 @@ fun TrainingDurationText(trainingDurationToday: Int, trainingDurationTwoWeekAver
                 withStyle(
                     MaterialTheme.typography.displaySmall.toSpanStyle()
                 ) {
-                    append(" min \n today")
+                    append(" min \n ${stringResource(Res.string.today)}")
                 }
             }, lineHeight = MaterialTheme.typography.displaySmall.fontSize,
             color = MaterialTheme.colorScheme.onBackground

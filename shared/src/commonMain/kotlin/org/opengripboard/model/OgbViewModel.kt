@@ -12,6 +12,7 @@ import org.opengripboard.data.MqttService
 import org.opengripboard.data.SettingsRepository
 import org.opengripboard.data.objects.Hangboard
 import org.opengripboard.data.objects.HangboardStatus
+import org.opengripboard.ui.customAppLocale
 import kotlin.time.Duration
 
 class OgbViewModel(
@@ -24,6 +25,8 @@ class OgbViewModel(
 ) : ViewModel() {
     val navigation = NavigationManager(::onPageEntered)
     var currentError by mutableStateOf<String?>(null)
+    var currentLocale by mutableStateOf<String>( "en")
+        private set
     var hasCameraPermission by mutableStateOf(false)
         private set
     var shouldRequestCameraPermission by mutableStateOf(false)
@@ -147,7 +150,13 @@ class OgbViewModel(
         }
     }
 
+    //Settings Page//
+    fun onLocalAppSettingsSelected(){
+        navigation.onSettingsSelected()
+    }
     fun onLanguageSelected(locale: String) {
+        currentLocale = locale
+        customAppLocale = locale
         settingsRepository.language = locale
     }
 }
