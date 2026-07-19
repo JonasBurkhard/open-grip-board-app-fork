@@ -3,6 +3,7 @@ package org.opengripboard.ui.preview
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.opengripboard.data.MqttService
 import org.opengripboard.data.SettingsRepository
 import org.opengripboard.data.objects.Hangboard
 import org.opengripboard.data.objects.HangboardStatus
@@ -21,11 +22,28 @@ class ModelProvider : PreviewParameterProvider<OgbViewModel> {
         override var language = "en"
     }
 
+    class PreviewMqttService : MqttService {
+        override fun connectAndSubscribe(
+            topic: String,
+            onNewMessage: (String) -> Unit,
+            onConnectionFailed: () -> Unit,
+        ) {
+        }
+    }
+
     override val values: Sequence<OgbViewModel> = sequenceOf(
-        OgbViewModel(PreviewLocalStorageService(), PreviewSettingsRepository()).apply {
+        OgbViewModel(
+            PreviewLocalStorageService(),
+            PreviewSettingsRepository(),
+            PreviewMqttService()
+        ).apply {
 
         },
-        OgbViewModel(PreviewLocalStorageService(), PreviewSettingsRepository()).apply {
+        OgbViewModel(
+            PreviewLocalStorageService(),
+            PreviewSettingsRepository(),
+            PreviewMqttService()
+        ).apply {
             trainings.addTrainings(
                 List(28) { id ->
                     Training(
@@ -44,11 +62,15 @@ class ModelProvider : PreviewParameterProvider<OgbViewModel> {
                 }
             )
         },
-        OgbViewModel(PreviewLocalStorageService(), PreviewSettingsRepository()).apply {
+        OgbViewModel(
+            PreviewLocalStorageService(),
+            PreviewSettingsRepository(),
+            PreviewMqttService()
+        ).apply {
             trainings.addTrainings(
                 List(28) { id ->
                     Training(
-                        id = id.toString() ,
+                        id = id.toString(),
                         date = Clock.System.now().minus(Random.nextInt(0, 15).days)
                             .toLocalDateTime(TimeZone.currentSystemDefault()),
                         dataPoints = List(20) { Random.nextInt(5000, 60000) },

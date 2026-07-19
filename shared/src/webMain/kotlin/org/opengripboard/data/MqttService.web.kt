@@ -1,7 +1,7 @@
 package org.opengripboard.data
 
-actual class MqttService {
-    actual fun connectAndSubscribe(
+class WebMqttService : MqttService {
+    override fun connectAndSubscribe(
         topic: String,
         onNewMessage: (String) -> Unit,
         onConnectionFailed: () -> Unit,

@@ -1,7 +1,6 @@
 package org.opengripboard
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -22,6 +21,8 @@ import org.opengripboard.data.objects.Hangboard
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import org.opengripboard.data.AndroidLocalStorageService
+import org.opengripboard.data.AndroidMqttService
+import org.opengripboard.data.MqttService
 import org.opengripboard.data.SettingsRepository
 import org.opengripboard.di.AppDependencies
 
@@ -38,10 +39,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val localStorageService = AndroidLocalStorageService(prefs)
 
-        viewModel = OgbViewModel(localStorageService, AppDependencies.settingsRepository)
+        viewModel = OgbViewModel(localStorageService, AppDependencies.settingsRepository,
+            AndroidMqttService())
 
         onBackPressedDispatcher.addCallback(this) {
             viewModel.navigation.navigateBack()
@@ -114,5 +116,15 @@ fun AppAndroidPreview() {
     class PreviewSettingsRepository : SettingsRepository {
         override var language = "en"
     }
-    App(OgbViewModel(FakeLocalStorageService(),PreviewSettingsRepository()))
+
+    class PreviewMqttService: MqttService{
+        override fun connectAndSubscribe(
+            topic: String,
+            onNewMessage: (String) -> Unit,
+            onConnectionFailed: () -> Unit
+        ) {
+        }
+
+    }
+    App(OgbViewModel(FakeLocalStorageService(),PreviewSettingsRepository(), PreviewMqttService()))
 }

@@ -7,7 +7,7 @@ import java.util.UUID
 import kotlin.text.Charsets.UTF_8
 import java.nio.charset.StandardCharsets
 
-actual class MqttService actual constructor() {
+class AndroidMqttService : MqttService {
     private val serverHost: String = "opengripboard.org"
     private val qos: MqttQos = MqttQos.EXACTLY_ONCE
     private val username: String = "android"
@@ -24,7 +24,7 @@ actual class MqttService actual constructor() {
         .serverPort(1883)
         .buildAsync()
 
-    actual fun connectAndSubscribe(
+    override fun connectAndSubscribe(
         topic: String,
         onNewMessage: (String) -> Unit,
         onConnectionFailed: () -> Unit,
