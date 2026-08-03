@@ -149,7 +149,7 @@ class OgbViewModel(
         }
     }
 
-    val settingsModel = SettingsModel(settingsRepository)
+    val settingsModel = SettingsModel(settingsRepository, trainings)
     val dashboardModel = DashboardModel(navigation)
 
 }

@@ -17,6 +17,10 @@ class TrainingsManager {
         pastTrainings.removeAll { training -> training.id == id }
     }
 
+    fun onDeleteAll() {
+        pastTrainings.removeAll { true }
+    }
+
     fun addTraining(newTraining: Training) {
         pastTrainings.add(newTraining)
     }
@@ -39,4 +43,5 @@ class TrainingsManager {
             )
         )
     }
+
 }
