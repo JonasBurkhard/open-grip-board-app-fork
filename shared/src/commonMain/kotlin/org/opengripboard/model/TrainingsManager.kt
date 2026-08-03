@@ -3,26 +3,31 @@ package org.opengripboard.model
 import androidx.compose.runtime.mutableStateListOf
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.opengripboard.data.LocalStorageService
 import org.opengripboard.data.objects.Training
 import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-class TrainingsManager {
+class TrainingsManager(private val localStorageService: LocalStorageService) {
     var pastTrainings = mutableStateListOf<Training>()
         private set
 
-    fun onDeletePressed(id: String) {
-        pastTrainings.removeAll { training -> training.id == id }
+    fun deleteTraining(trainingToDelete: Training) {
+        pastTrainings.removeAll { training -> training.id == trainingToDelete.id }
+        localStorageService.deleteTraining(trainingToDelete.id)
     }
 
     fun onDeleteAll() {
-        pastTrainings.removeAll { true }
+        pastTrainings.toList().forEach { training ->
+            deleteTraining(training)
+        }
     }
 
     fun addTraining(newTraining: Training) {
         pastTrainings.add(newTraining)
+        localStorageService.saveTraining(newTraining)
     }
 
     fun addTrainings(newTrainings: List<Training>) {

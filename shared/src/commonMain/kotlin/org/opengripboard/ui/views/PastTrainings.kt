@@ -23,6 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import opengripboard.shared.generated.resources.Res
+import opengripboard.shared.generated.resources.no_trainings_yet
+import org.jetbrains.compose.resources.stringResource
 import org.opengripboard.data.objects.Training
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.theming.Theme
@@ -53,24 +56,30 @@ private fun ItemSliderDarkPreview(@PreviewParameter(ModelProvider::class) model:
 fun PastTrainings(
     pastTrainings: List<Training>,
     onNewRecordingPressed: () -> Unit,
-    onDeletePressed: (String) -> Unit,
+    onDeletePressed: (Training) -> Unit,
     onBackPressed: () -> Unit
 ) {
     ActionView("Your recorded trainings", onBackPressed) {
-        Text("training")
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .padding(MaterialTheme.spacing.medium, 0.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                items(pastTrainings.size) { index ->
-                    TrainingEntry(pastTrainings[index], onDeletePressed)
+            if (pastTrainings.isEmpty()) {
+                Column (modifier = Modifier.fillMaxWidth().weight(1f).padding(MaterialTheme.spacing.medium)){
+                    Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
+                    Text(stringResource(Res.string.no_trainings_yet))
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .padding(MaterialTheme.spacing.medium),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    items(pastTrainings.size) { index ->
+                        TrainingEntry(pastTrainings[index], onDeletePressed)
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(30.dp))
@@ -87,8 +96,9 @@ fun PastTrainings(
     }
 }
 
+
 @Composable
-private fun TrainingEntry(training: Training, onDeletePressed: (String) -> Unit) {
+private fun TrainingEntry(training: Training, onDeletePressed: (Training) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,6 +127,6 @@ private fun TrainingEntry(training: Training, onDeletePressed: (String) -> Unit)
             )
         }
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
-        IconButton(Icons.Outlined.Delete, { onDeletePressed(training.id) })
+        IconButton(Icons.Outlined.Delete, { onDeletePressed(training) })
     }
 }

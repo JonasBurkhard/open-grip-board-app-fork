@@ -108,6 +108,9 @@ fun AppAndroidPreview() {
             return trainings.values.toList()
         }
 
+        override fun deleteTraining(id: String) {
+        }
+
         override fun saveHangboard(hangboard: Hangboard) {
             hangboards[hangboard.hangboardId] = hangboard
         }

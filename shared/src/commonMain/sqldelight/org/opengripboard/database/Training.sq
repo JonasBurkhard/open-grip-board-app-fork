@@ -14,3 +14,7 @@ VALUES (?, ?, ?, ?);
 
 selectById:
 SELECT * FROM Training WHERE id = ?;
+
+deleteTraining:
+DELETE FROM Training
+WHERE id = ?;

@@ -17,6 +17,9 @@ class PreviewLocalStorageService : LocalStorageService {
         return trainings[id]
     }
 
+    override fun deleteTraining(id: String) {
+    }
+
     override fun loadAllTrainings(): List<Training> {
         return trainings.values.toList()
     }

@@ -36,6 +36,10 @@ class AndroidLocalStorageService(
                 )
             }
 
+    override fun deleteTraining(id: String) {
+        trainingQueries.deleteTraining(id)
+    }
+
     override fun loadAllTrainings(): List<Training> =
         trainingQueries.selectAll()
             .executeAsList()
