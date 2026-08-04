@@ -72,7 +72,7 @@ fun ViewContent(model: OgbViewModel) {
             PastTrainings(
                 model.trainings.pastTrainings,
                 { model.onNewRecordingPressed() },
-                { id -> model.trainings.onDeletePressed(id) },
+                { training -> model.pastTrainingsModel.onDeleteTraining(training) },
                 { model.navigation.navigateBack() },
             )
         }

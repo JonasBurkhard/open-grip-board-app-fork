@@ -13,6 +13,7 @@ import org.opengripboard.data.SettingsRepository
 import org.opengripboard.data.objects.Hangboard
 import org.opengripboard.data.objects.HangboardStatus
 import org.opengripboard.model.views.DashboardModel
+import org.opengripboard.model.views.PastTrainingsModel
 import org.opengripboard.model.views.SettingsModel
 import kotlin.time.Duration
 
@@ -21,8 +22,9 @@ class OgbViewModel(
     private val settingsRepository: SettingsRepository,
     private val mqttService: MqttService,
     val statistics: StatisticsManager = StatisticsManager(),
-    val trainings: TrainingsManager = TrainingsManager(),
+    val trainings: TrainingsManager = TrainingsManager(localStorageService),
     val hangboards: HangboardsManager = HangboardsManager(),
+    val pastTrainingsModel: PastTrainingsModel = PastTrainingsModel(trainings),
 ) : ViewModel() {
     val navigation = NavigationManager(::onPageEntered)
     var currentError by mutableStateOf<String?>(null)
@@ -149,7 +151,7 @@ class OgbViewModel(
         }
     }
 
-    val settingsModel = SettingsModel(settingsRepository)
+    val settingsModel = SettingsModel(settingsRepository, trainings)
     val dashboardModel = DashboardModel(navigation)
 
 }

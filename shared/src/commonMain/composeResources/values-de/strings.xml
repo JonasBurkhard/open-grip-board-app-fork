@@ -8,4 +8,10 @@
     <string name="connect_hangboard">Connect a new Hangboard</string>
     <string name="past_trainings">Your past trainings</string>
     <string name="recording_data">Recording data</string>
+    <string name="personal_training_data">Persönliche Trainingsdaten</string>
+    <string name="delete_all_recorded_training_data">Alle gespeicherte Trainingsdaten löschen</string>
+    <string name="are_you_sure">Bist du sicher, dass du all deine Trainingsdaten löschen möchtest? Die Daten können nach dem Löschen nicht wiederhergestellt werden.</string>
+    <string name="keep_data">Daten behalten</string>
+    <string name="delete_data">Daten löschen</string>
+    <string name="no_trainings_yet">Es können keine Trainings angezeigt werden, du hast noch keine Trainings aufgezeichnet.</string>
 </resources>
