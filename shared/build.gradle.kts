@@ -72,6 +72,7 @@ kotlin {
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
             implementation(libs.sqldelight.runtime)
+            implementation(libs.arrow.core)
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)
