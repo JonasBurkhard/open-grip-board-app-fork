@@ -10,4 +10,5 @@ data class Training(
     val date: LocalDateTime,
     val dataPoints: List<Int>,
     val duration: Duration,
+    val gripType: GripType,
 )

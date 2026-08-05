@@ -13,6 +13,7 @@ Companion app for the open grip board.
 - [x] scan open grip board hardware QR-Code and connect to Hangboard
 - [x] record data while training on the hangboard
 - [ ] basic statistics from past trainings
+- [ ] translations for english and german
 
 #### V1.1
 - [ ] control hangboard from the app i.e. weight cell calibration.

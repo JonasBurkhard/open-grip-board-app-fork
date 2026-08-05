@@ -8,6 +8,10 @@
     <string name="connect_hangboard">Connect a new Hangboard</string>
     <string name="past_trainings">Your past trainings</string>
     <string name="recording_data">Recording data</string>
+    <string name="left">left hand side</string>
+    <string name="right">right hand side</string>
+    <string name="error_no_hangboard_selected">Recording cannot be started, you must select a hangboard first</string>
+    <string name="failed_to_subscribe_to_hangboard">Failed to subscribe to hangboard</string>
     <string name="personal_training_data">Personal training data</string>
     <string name="delete_all_recorded_training_data">Delete all recorded training data</string>
     <string name="are_you_sure">Are you sure, you want to deleta all recorded training data? There is no way to restore it after deletion.</string>

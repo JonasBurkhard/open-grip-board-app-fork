@@ -1,7 +1,9 @@
 package org.opengripboard.ui.views
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -9,6 +11,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Stop
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,7 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import org.opengripboard.data.objects.GripType
 import org.opengripboard.data.objects.Hangboard
+import org.opengripboard.data.objects.Side
 import org.opengripboard.model.OgbViewModel
 import org.opengripboard.theming.Theme
 import org.opengripboard.theming.spacing
@@ -44,6 +51,9 @@ private fun ItemSliderLightPreview(@PreviewParameter(ModelProvider::class) model
             {},
             model.hangboards.availableHangboards,
             model.hangboards.currentHangboard,
+            listOf(GripType("full Hand", Side.Right), GripType("crimp", Side.Right)),
+            GripType("full Hand", Side.Right),
+            {},
         )
     }
 }
@@ -62,6 +72,9 @@ private fun ItemSliderDarkPreview(@PreviewParameter(ModelProvider::class) model:
             {},
             model.hangboards.availableHangboards,
             model.hangboards.currentHangboard,
+            listOf(GripType("full Hand", Side.Right), GripType("crimp", Side.Right)),
+            GripType("full Hand", Side.Right),
+            {},
         )
     }
 }
@@ -78,6 +91,9 @@ fun RecordingData(
     onHangboardSelected: (Int) -> Unit,
     availableHangboards: List<Hangboard>,
     currentHangboard: Hangboard?,
+    availableGripTypes: List<GripType>,
+    currentGripType: GripType,
+    onGripTypeSelected: (GripType) -> Unit,
 ) {
     ActionView("Record a new Training", onBackPressed = { onBackPressed() }) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -91,12 +107,43 @@ fun RecordingData(
                     currentHangboard
                 )
             }
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+            val icon =
+                if (isRecordingHangboardReadings) Icons.Outlined.Stop else Icons.Outlined.PlayArrow
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+            ) {
+                availableGripTypes.forEach {
+                    val colors = if (it == currentGripType) {
+                        ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    } else {
+                        ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
+                    Button(
+                        onClick = { onGripTypeSelected(it) },
+                        colors = colors
+                    ) {
+                        Text("${it.name} ${stringResource(it.side.display)}")
+                    }
+                }
+            }
             Spacer(modifier = Modifier.weight(1f))
-            val icon = if (isRecordingHangboardReadings) Icons.Outlined.Stop else Icons.Outlined.PlayArrow
-            val onButtonPressed = if (isRecordingHangboardReadings) onStopRecordingPressed else onStartRecordingPressed
+            val onButtonPressed =
+                if (isRecordingHangboardReadings) onStopRecordingPressed else onStartRecordingPressed
             IconButton(
                 modifier = Modifier.size(120.dp)
-                    .border(1.dp, MaterialTheme.colorScheme.onBackground, MaterialTheme.shapes.medium),
+                    .border(
+                        1.dp,
+                        MaterialTheme.colorScheme.onBackground,
+                        MaterialTheme.shapes.medium
+                    ),
                 onButtonPressed = onButtonPressed,
                 icon = icon
             )
@@ -112,7 +159,9 @@ fun RecordingView(currentHangboardReadings: List<Int>) {
         modifier = Modifier.padding(MaterialTheme.spacing.large)
     )
     Text(
-        "Current Reading: ${currentHangboardReadings.lastOrNull()?.div(100f)?.roundToInt()?.div(10f) ?: "-"} kg",
+        "Current Reading: ${
+            currentHangboardReadings.lastOrNull()?.div(100f)?.roundToInt()?.div(10f) ?: "-"
+        } kg",
         color = MaterialTheme.colorScheme.onBackground
     )
 }

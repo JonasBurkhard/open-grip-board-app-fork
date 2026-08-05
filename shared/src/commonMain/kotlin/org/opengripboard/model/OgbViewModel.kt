@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import opengripboard.shared.generated.resources.Res
+import opengripboard.shared.generated.resources.failed_to_subscribe_to_hangboard
+import org.jetbrains.compose.resources.StringResource
 import org.opengripboard.data.LocalStorageService
 import org.opengripboard.data.MqttService
 import org.opengripboard.data.SettingsRepository
@@ -22,12 +25,12 @@ class OgbViewModel(
     private val settingsRepository: SettingsRepository,
     private val mqttService: MqttService,
     val statistics: StatisticsManager = StatisticsManager(),
-    val trainings: TrainingsManager = TrainingsManager(localStorageService),
     val hangboards: HangboardsManager = HangboardsManager(),
-    val pastTrainingsModel: PastTrainingsModel = PastTrainingsModel(trainings),
 ) : ViewModel() {
+    val trainings: TrainingsManager = TrainingsManager(localStorageService, hangboards, ::postError)
+    val pastTrainingsModel: PastTrainingsModel = PastTrainingsModel(trainings)
     val navigation = NavigationManager(::onPageEntered)
-    var currentError by mutableStateOf<String?>(null)
+    var currentError by mutableStateOf<StringResource?>(null)
     var hasCameraPermission by mutableStateOf(false)
         private set
     var shouldRequestCameraPermission by mutableStateOf(false)
@@ -76,11 +79,6 @@ class OgbViewModel(
         navigation.onHangboardSelected()
     }
 
-    fun onHangboardRecordingStopped() {
-        val duration: Duration = hangboards.onStopRecording()
-        trainings.addTrainingFromReadings(hangboards.currentReadings, duration)
-    }
-
     /// QR Camera ///
     fun onQrScannerResult(scan: String) {
         if (scan != "notFound") {
@@ -111,6 +109,10 @@ class OgbViewModel(
         currentError = null
     }
 
+    fun postError(msg: StringResource){
+        currentError = msg
+    }
+
     /// MQTT ///
     fun subscribeToCurrentHangboard() {
         hangboards.currentHangboard?.hangboardId?.let {
@@ -128,7 +130,7 @@ class OgbViewModel(
     }
 
     fun onHangboardSubscriptionFail() {
-        currentError = "failed to subscribe to hangboard"
+        postError(Res.string.failed_to_subscribe_to_hangboard)
     }
 
     fun subscribeToMqttTopic(
