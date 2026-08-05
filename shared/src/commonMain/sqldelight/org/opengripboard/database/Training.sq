@@ -2,18 +2,28 @@ CREATE TABLE Training (
     id TEXT NOT NULL PRIMARY KEY,
     date TEXT NOT NULL,
     dataPoints TEXT NOT NULL,
-    duration INTEGER NOT NULL
+    duration INTEGER NOT NULL,
+    gripTypeName TEXT NOT NULL,
+    gripTypeSide TEXT NOT NULL
 );
 
 selectAll:
 SELECT * FROM Training;
 
 insert:
-INSERT INTO Training(id, date, dataPoints, duration)
-VALUES (?, ?, ?, ?);
+INSERT INTO Training(
+    id,
+    date,
+    dataPoints,
+    duration,
+    gripTypeName,
+    gripTypeSide
+)
+VALUES (?, ?, ?, ?, ?, ?);
 
 selectById:
-SELECT * FROM Training WHERE id = ?;
+SELECT * FROM Training
+WHERE id = ?;
 
 deleteTraining:
 DELETE FROM Training

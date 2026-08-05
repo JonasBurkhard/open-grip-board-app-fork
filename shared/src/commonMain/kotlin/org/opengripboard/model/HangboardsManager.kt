@@ -4,22 +4,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
 import org.opengripboard.data.objects.Hangboard
-import kotlin.time.Clock
-import kotlin.time.Duration
 
 class HangboardsManager {
     var isRecording by mutableStateOf(false)
         private set
-    private var recordingStartTime: LocalDateTime? = null
-    var currentReadings = mutableStateListOf<Int>()
     var availableHangboards = mutableStateListOf<Hangboard>()
         private set
     var currentHangboard by mutableStateOf<Hangboard?>(null)
+        private set
+    var currentReadings = mutableStateListOf<Int>()
         private set
 
     fun onSelected(hangboardId: String) {
@@ -27,20 +21,13 @@ class HangboardsManager {
             availableHangboards.firstOrNull { hangboard -> hangboard.hangboardId == hangboardId }
     }
 
-    fun onStartRecording() {
+    fun startRecording() {
         currentReadings.clear()
-        recordingStartTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         isRecording = true
     }
 
-    fun onStopRecording(): Duration {
+    fun onStopRecording() {
         isRecording = false
-        recordingStartTime?.let { startTime ->
-            return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-                .toInstant(TimeZone.currentSystemDefault()) -
-                    startTime.toInstant(TimeZone.currentSystemDefault())
-        }
-        return Duration.ZERO
     }
 
     fun addHangboard(newHangboard: Hangboard) {

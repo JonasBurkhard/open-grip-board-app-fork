@@ -2,9 +2,11 @@ package org.opengripboard.data
 
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.json.Json
+import org.opengripboard.data.objects.GripType
 import org.opengripboard.data.objects.Training
 import org.opengripboard.data.objects.Hangboard
 import org.opengripboard.data.objects.HangboardStatus
+import org.opengripboard.data.objects.Side
 import org.opengripboard.database.AppDatabase
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -20,7 +22,9 @@ class AndroidLocalStorageService(
             training.id,
             training.date.toString(),
             Json.encodeToString(training.dataPoints),
-            training.duration.inWholeMilliseconds
+            training.duration.inWholeMilliseconds,
+            training.gripType.name,
+            training.gripType.side.toString(),
         )
     }
 
@@ -32,7 +36,8 @@ class AndroidLocalStorageService(
                     it.id,
                     LocalDateTime.parse(it.date),
                     Json.decodeFromString(it.dataPoints),
-                    it.duration.milliseconds
+                    it.duration.milliseconds,
+                    gripType = GripType(it.gripTypeName, Side.valueOf(it.gripTypeSide))
                 )
             }
 
@@ -48,7 +53,8 @@ class AndroidLocalStorageService(
                     it.id,
                     LocalDateTime.parse(it.date),
                     Json.decodeFromString(it.dataPoints),
-                    it.duration.milliseconds
+                    it.duration.milliseconds,
+                    gripType = GripType(it.gripTypeName, Side.valueOf(it.gripTypeSide))
                 )
             }
 

@@ -82,12 +82,15 @@ fun ViewContent(model: OgbViewModel) {
                 { model.navigation.navigateBack() },
                 model.hangboards.isRecording,
                 model.hangboards.currentReadings,
-                { model.hangboards.onStartRecording() },
-                { model.onHangboardRecordingStopped() },
+                { model.trainings.onStartRecordingTraining() },
+                { model.trainings.onStopRecordingTraining() },
                 { model.onAddHangboard() },
                 { id -> model.onHangboardSelected(id) },
                 model.hangboards.availableHangboards,
                 model.hangboards.currentHangboard,
+                model.trainings.availableGripTypes,
+                model.trainings.currentGripType,
+                {type -> model.trainings.onGripTypeSelected(type)}
             )
         }
 
